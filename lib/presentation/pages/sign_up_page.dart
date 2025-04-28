@@ -31,12 +31,20 @@ class SignUpPage extends StatelessWidget {
                   style: GoogleFonts.poppins(fontSize: 14),
                 ),
                 const Gap(5),
-                Text(
-                  'Masuk',
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                 GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SignInPage()),
+                    );
+                  },
+                  child: Text(
+                    'Masuk',
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ],
@@ -96,7 +104,7 @@ class SignUpPage extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
-                              builder: (context) => const SignUpPage(),
+                              builder: (context) => const SignInPage(),
                             ));
                           },
                         );

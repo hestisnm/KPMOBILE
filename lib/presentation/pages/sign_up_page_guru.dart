@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kelas_pintar/presentation/pages/sign_in_page_guru.dart';
 import 'package:kelas_pintar/presentation/pages/start.dart';
 import 'package:kelas_pintar/presentation/widgets/button_widget.dart';
 import 'package:kelas_pintar/presentation/widgets/input_widget.dart';
@@ -30,12 +31,20 @@ class SignUpPageGuru extends StatelessWidget {
                   style: GoogleFonts.poppins(fontSize: 14),
                 ),
                 const Gap(5),
-                Text(
-                  'Masuk',
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SignInPageGuru()),
+                    );
+                  },
+                  child: Text(
+                    'Masuk',
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ],
@@ -95,7 +104,7 @@ class SignUpPageGuru extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
-                              builder: (context) => const SignUpPageGuru(),
+                              builder: (context) => const SignInPageGuru(),
                             ));
                           },
                         );

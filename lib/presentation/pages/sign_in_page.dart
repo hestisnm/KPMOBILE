@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kelas_pintar/presentation/pages/sign_up_page.dart';
+import 'package:kelas_pintar/presentation/pages/discover_page.dart';
 import 'package:kelas_pintar/presentation/widgets/button_widget.dart';
 import 'package:kelas_pintar/presentation/widgets/input_widget.dart';
 import 'package:kelas_pintar/presentation/widgets/page_widget.dart';
@@ -29,12 +31,20 @@ class SignInPage extends StatelessWidget {
                   style: GoogleFonts.poppins(fontSize: 14),
                 ),
                 const Gap(5),
-                Text(
-                  'Daftar',
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                 GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SignUpPage()),
+                    );
+                  },
+                  child: Text(
+                    'Daftar',
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ],
@@ -90,7 +100,7 @@ class SignInPage extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
-                              builder: (context) => const SignInPage(),
+                              builder: (context) => const DiscoverPage(),
                             ));
                           },
                         );

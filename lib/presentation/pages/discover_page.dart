@@ -40,6 +40,9 @@ class _DiscoverPageState extends State<DiscoverPage>
             _userInfo(),
             const Gap(5),
             _hasilKoinmu(), // Tambahan widget koinmu di sini
+            _sapaanUser(
+                imageWidth: 200,
+                imageHeight: 200), // Tambahan widget sapaanuser di sini
           ],
         ),
       ),
@@ -154,4 +157,79 @@ class _DiscoverPageState extends State<DiscoverPage>
           ),
         ),
       );
+
+  Widget _sapaanUser({double imageWidth = 220, double imageHeight = 220}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+      child: Stack(
+        clipBehavior: Clip.none, // supaya gambar bisa keluar dari Stack
+        children: [
+          // Container teks
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: const Color(0xFFC5BAFF),
+              borderRadius: BorderRadius.circular(25),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            child: Row(
+              children: [
+                // Kolom teks
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      RichText(
+                        text: TextSpan(
+                          style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            color: Colors.black,
+                          ),
+                          children: [
+                            const TextSpan(text: 'Hallo, '),
+                            TextSpan(
+                              text: 'Allie!',
+                              style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Gap(6),
+                      Text(
+                        'Sudah siap untuk\nmencapai rekor baru?',
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          color: Colors.black87,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Gap(12),
+                const SizedBox(
+                    width: 120), // Tempat gambar, agar Container tetap lebar
+              ],
+            ),
+          ),
+          // Gambar tumpuk di atas container, pojok kanan
+          Positioned(
+            right: 0,
+            top: -30, // mengatur posisi keluar dari atas container
+            child: SizedBox(
+              width: imageWidth,
+              height: imageHeight,
+              child: Image.asset(
+                'assets/images/happy_koala.png',
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

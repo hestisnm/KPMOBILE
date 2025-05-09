@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kelas_pintar/presentation/pages/sign_up_page.dart';
-import 'package:kelas_pintar/presentation/pages/sign_up_page_guru.dart';
+import 'package:kelas_pintar/presentation/pages/sign_in_page.dart';
+import 'package:kelas_pintar/presentation/pages/sign_in_page_guru.dart';
 import 'package:kelas_pintar/presentation/widgets/button_widget.dart';
 import 'package:kelas_pintar/presentation/widgets/page_widget.dart';
 
@@ -64,7 +64,7 @@ class _StartState extends State<Start> with SingleTickerProviderStateMixin {
                         );
                       },
                       child: Image.asset(
-                        'assets/images/masuk.png',
+                        'assets/images/happy_koala.png',
                         width: isSmallScreen
                             ? screenWidth * 5
                             : screenWidth * 2, // lebih besar
@@ -89,7 +89,7 @@ class _StartState extends State<Start> with SingleTickerProviderStateMixin {
                       padding:
                           EdgeInsets.symmetric(horizontal: screenWidth * 0.07),
                       child: Text(
-                        'AYO DAFTARKAN DIRI ANDA',
+                        'AYO RAIH KOIN EMASMU LAGI!',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.poppins(
                           fontSize: isSmallScreen ? 14 : 16,
@@ -107,7 +107,7 @@ class _StartState extends State<Start> with SingleTickerProviderStateMixin {
                             onPressed: () {
                               Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(
-                                  builder: (context) => const SignUpPage(),
+                                  builder: (context) => const SignInPage(),
                                 ),
                               );
                             },
@@ -120,7 +120,7 @@ class _StartState extends State<Start> with SingleTickerProviderStateMixin {
                             onPressed: () {
                               Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(
-                                  builder: (context) => const SignUpPageGuru(),
+                                  builder: (context) => const SignInPageGuru(),
                                 ),
                               );
                             },

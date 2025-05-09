@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kelas_pintar/presentation/pages/start.dart';
-
+import 'package:kelas_pintar/presentation/pages/onboarding.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -12,7 +11,8 @@ class SplashScreen extends StatelessWidget {
 
     Future.delayed(const Duration(seconds: 2)).then((value) {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => Start()), (route) => false);
+          MaterialPageRoute(builder: (context) => OnboardingPage()),
+          (route) => false);
     });
 
     return Scaffold(

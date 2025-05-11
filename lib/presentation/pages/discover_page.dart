@@ -346,16 +346,16 @@ class PilihKelasWidget extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 20),
           Text(
             'Mata Pelajaran Yang Sering Anda Pelajari',
             style: GoogleFonts.poppins(
               fontWeight: FontWeight.w600,
-              fontSize: 14,
+              fontSize: 12,
               color: Colors.black,
             ),
           ),
-          const Gap(12),
+          const Gap(20),
           InkWell(
             onTap: () {
               Navigator.push(
@@ -407,8 +407,7 @@ class PilihKelasWidget extends StatelessWidget {
             ),
           ),
 
-
-          
+          // mapel kedua
           const Gap(12),
           InkWell(
             onTap: () {
@@ -441,7 +440,7 @@ class PilihKelasWidget extends StatelessWidget {
                     ),
                     padding: const EdgeInsets.all(10),
                     child: Image.asset(
-                      'assets/images/seniBudaya.png',
+                      'assets/images/garuda_pp.png',
                       width: 60,
                       height: 60,
                       fit: BoxFit.contain,
@@ -449,7 +448,59 @@ class PilihKelasWidget extends StatelessWidget {
                   ),
                   const SizedBox(width: 20),
                   Text(
-                    'SENI BUDAYA',
+                    'PENDIDIKAN\nPANCASILA',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          // mapel ketiga
+          const Gap(12),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const PelajaranSeniPage()),
+              );
+            },
+            borderRadius: BorderRadius.circular(24),
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 6,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xFFD6C4FF),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    padding: const EdgeInsets.all(10),
+                    child: Image.asset(
+                      'assets/images/matematika.png',
+                      width: 60,
+                      height: 60,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                  Text(
+                    'MATEMATIKA',
                     style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w600,
                       fontSize: 16,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gap/gap.dart';
-import 'package:kelas_pintar/presentation/pages/discover_page.dart';
 import 'package:kelas_pintar/presentation/pages/start.dart';
 import 'package:kelas_pintar/presentation/pages/startMasuk.dart';
 import 'package:kelas_pintar/presentation/widgets/button_widget.dart';
@@ -26,10 +25,9 @@ class _OnboardingViewState extends State<Pilihan> {
             padding: const EdgeInsets.only(
               left: 20,
               right: 20,
-              top: 30,
+              top: 90,
             ),
             child: Center(
-              // Tambahkan ini untuk membuat gambar di tengah
               child: Image.asset(
                 'assets/images/onboarding2.png',
                 width: screenWidth * 0.7,
@@ -39,10 +37,10 @@ class _OnboardingViewState extends State<Pilihan> {
           ),
           const Gap(15),
           Text(
-            " Latihan soal kapan aja!",
+            "Latihan soal kapan aja!",
             textAlign: TextAlign.center,
             style: GoogleFonts.poppins(
-              fontSize: 16,
+              fontSize: 18,
               fontWeight: FontWeight.w600,
               height: 1.3,
             ),
@@ -52,18 +50,19 @@ class _OnboardingViewState extends State<Pilihan> {
             "Pilih kelas, pilih topik, kerjain soal, dan\ndapatkan koinmu!",
             textAlign: TextAlign.center,
             style: GoogleFonts.poppins(
-              fontSize: 12,
+              fontSize: 16,
               fontWeight: FontWeight.w400,
               height: 1.3,
             ),
           ),
-          const Gap(175),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Flexible(
-                child: ButtonWidget(
+          const Gap(57),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40),
+            child: Column(
+              children: [
+                ButtonWidget(
                   text: "DAFTAR",
+                  isFullWidth: true,
                   onPressed: () {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
@@ -72,11 +71,10 @@ class _OnboardingViewState extends State<Pilihan> {
                     );
                   },
                 ),
-              ),
-              SizedBox(width: screenWidth * 0.03),
-              Flexible(
-                child: ButtonWidget(
+                const SizedBox(height: 12),
+                ButtonWidget(
                   text: "MASUK",
+                  isFullWidth: true,
                   onPressed: () {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
@@ -85,8 +83,8 @@ class _OnboardingViewState extends State<Pilihan> {
                     );
                   },
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

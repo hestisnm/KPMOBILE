@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:gap/gap.dart';
 import 'package:kelas_pintar/presentation/pages/pilihan.dart';
 import 'package:kelas_pintar/presentation/widgets/button_widget.dart';
+import 'package:kelas_pintar/constants/color_constant.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
@@ -49,6 +50,15 @@ class _OnboardingPageState extends State<OnboardingPage> {
     }
   }
 
+  void _previousPage() {
+    if (_currentPage > 0) {
+      _pageController.previousPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -75,12 +85,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           fit: BoxFit.contain,
                         ),
                       ),
-                      const Gap(15),
+                      const Gap(20),
                       Text(
                         page['title'],
                         textAlign: TextAlign.center,
                         style: GoogleFonts.poppins(
-                          fontSize: 16,
+                          fontSize: 18,
                           fontWeight: FontWeight.w600,
                           height: 1.3,
                         ),
@@ -90,7 +100,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         page['subtitle'],
                         textAlign: TextAlign.center,
                         style: GoogleFonts.poppins(
-                          fontSize: 12,
+                          fontSize: 16,
                           fontWeight: FontWeight.w400,
                           height: 1.3,
                         ),
@@ -123,11 +133,27 @@ class _OnboardingPageState extends State<OnboardingPage> {
           const Gap(30),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40),
-            child: ButtonWidget(
-              text:
-                  _currentPage == _pages.length - 1 ? 'Selesai' : 'Selanjutnya',
-              isFullWidth: true,
-              onPressed: _nextPage,
+            child: Column(
+              children: [
+                ButtonWidget(
+                  text: _currentPage == _pages.length - 1
+                      ? 'Selesai'
+                      : 'Selanjutnya',
+                  isFullWidth: true,
+                  onPressed: _nextPage,
+                ),
+                if (_currentPage > 0) ...[
+                  const Gap(12),
+                  ButtonWidget(
+                    text: 'Kembali',
+                    isFullWidth: true,
+                    backgroundColor:
+                        const Color(0xFFEBE8FB), // warna latar putih keunguan
+                    textColor: ColorConstant.primary, // warna teks ungu
+                    onPressed: _previousPage,
+                  ),
+                ],
+              ],
             ),
           ),
           const Gap(40),

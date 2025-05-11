@@ -2,142 +2,100 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kelas_pintar/presentation/pages/sign_up_page.dart';
 import 'package:kelas_pintar/presentation/pages/sign_up_page_guru.dart';
+import 'package:kelas_pintar/presentation/pages/pilihan.dart'; // import halaman pilihan
 import 'package:kelas_pintar/presentation/widgets/button_widget.dart';
-import 'package:kelas_pintar/presentation/widgets/page_widget.dart';
+import 'package:kelas_pintar/constants/color_constant.dart';
 
-class Start extends StatefulWidget {
+class Start extends StatelessWidget {
   const Start({super.key});
-
-  @override
-  State<Start> createState() => _StartState();
-}
-
-class _StartState extends State<Start> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _bounceAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1000),
-    )..repeat(reverse: true); // loop naik turun
-
-    _bounceAnimation = Tween<double>(begin: 0, end: -20).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    final isSmallScreen = screenWidth < 600;
-
-    return PageWidget(
-      child: Column(
+    return Scaffold(
+      backgroundColor: const Color(0xFFEBE8FB),
+      body: Stack(
         children: [
-          Expanded(
-            child: Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: screenWidth * 0.1,
+          Column(
+            children: [
+              const SizedBox(height: 70),
+              Center(
+                child: Image.asset(
+                  'assets/images/masuk.png',
+                  width: screenWidth * 0.80,
+                  fit: BoxFit.contain,
                 ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                "Belajar bersama,\nsukses semua!",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.poppins(
+                  fontSize: 21,
+                  fontWeight: FontWeight.w600,
+                  height: 1.3,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                "Ayo daftarkan dirimu sebagai...",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  height: 1.4,
+                ),
+              ),
+              const SizedBox(height: 50),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Efek pantulan
-                    AnimatedBuilder(
-                      animation: _bounceAnimation,
-                      builder: (context, child) {
-                        return Transform.translate(
-                          offset: Offset(0, _bounceAnimation.value),
-                          child: child,
+                    ButtonWidget(
+                      text: "MURID",
+                      isFullWidth: true,
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => const SignUpPage(),
+                          ),
                         );
                       },
-                      child: Image.asset(
-                        'assets/images/masuk.png',
-                        width: isSmallScreen
-                            ? screenWidth * 5
-                            : screenWidth * 2, // lebih besar
-                      ),
                     ),
-                    SizedBox(height: screenHeight * 0.015),
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
-                      child: Text(
-                        'BELAJAR BERSAMA SUKSES SEMUA',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins(
-                          fontSize: isSmallScreen ? 18 : 20,
-                          fontWeight: FontWeight.w600,
-                          height: 1.3,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: screenHeight * 0.008),
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: screenWidth * 0.07),
-                      child: Text(
-                        'AYO DAFTARKAN DIRI ANDA',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins(
-                          fontSize: isSmallScreen ? 14 : 16,
-                          height: 1.4,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: screenHeight * 0.012),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Flexible(
-                          child: ButtonWidget(
-                            text: "MURID",
-                            onPressed: () {
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (context) => const SignUpPage(),
-                                ),
-                              );
-                            },
+                    const SizedBox(height: 12),
+                    ButtonWidget(
+                      text: "GURU",
+                      isFullWidth: true,
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => const SignUpPageGuru(),
                           ),
-                        ),
-                        SizedBox(width: screenWidth * 0.03),
-                        Flexible(
-                          child: ButtonWidget(
-                            text: "GURU",
-                            onPressed: () {
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (context) => const SignUpPageGuru(),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
+                        );
+                      },
                     ),
                   ],
                 ),
               ),
-            ),
+            ],
           ),
-          Image.asset(
-            'assets/images/wave.png',
-            width: screenWidth,
-            height: screenHeight * 0.17,
-            fit: BoxFit.fill,
+
+          // Tombol kembali (pojok kiri atas)
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16, top: 8),
+              child: IconButton(
+                icon:
+                    const Icon(Icons.arrow_back_ios_new, color: Colors.black87),
+                onPressed: () {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => const Pilihan()),
+                  );
+                },
+              ),
+            ),
           ),
         ],
       ),

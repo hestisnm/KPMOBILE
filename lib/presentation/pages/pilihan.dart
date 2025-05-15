@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:gap/gap.dart';
 import 'package:kelas_pintar/presentation/pages/start.dart';
 import 'package:kelas_pintar/presentation/pages/startMasuk.dart';
+import 'package:kelas_pintar/presentation/pages/buat_kode_sekolah.dart'; // Tambahan: Import halaman BuatKodeSekolah
 import 'package:kelas_pintar/presentation/widgets/button_widget.dart';
 
 class Pilihan extends StatefulWidget {
@@ -22,11 +23,7 @@ class _OnboardingViewState extends State<Pilihan> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(
-              left: 20,
-              right: 20,
-              top: 90,
-            ),
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 90),
             child: Center(
               child: Image.asset(
                 'assets/images/onboarding2.png',
@@ -55,7 +52,7 @@ class _OnboardingViewState extends State<Pilihan> {
               height: 1.3,
             ),
           ),
-          const Gap(57),
+          const Gap(30),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40),
             child: Column(
@@ -82,6 +79,30 @@ class _OnboardingViewState extends State<Pilihan> {
                       ),
                     );
                   },
+                ),
+                const SizedBox(height: 30),
+                Text(
+                  'Belum punya kode sekolah?',
+                  style: GoogleFonts.poppins(fontSize: 12),
+                ),
+                const SizedBox(height: 5),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const BuatKodeSekolahPage(),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'Daftarkan Kode Sekolah',
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
                 ),
               ],
             ),

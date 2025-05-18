@@ -5,6 +5,7 @@ import 'package:kelas_pintar/presentation/pages/start.dart';
 import 'package:kelas_pintar/presentation/pages/startMasuk.dart';
 import 'package:kelas_pintar/presentation/pages/buat_kode_sekolah.dart'; // Tambahan: Import halaman BuatKodeSekolah
 import 'package:kelas_pintar/presentation/widgets/button_widget.dart';
+import 'package:kelas_pintar/presentation/widgets/page_widget.dart';
 
 class Pilihan extends StatefulWidget {
   const Pilihan({super.key});
@@ -18,9 +19,8 @@ class _OnboardingViewState extends State<Pilihan> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      backgroundColor: const Color(0xFFEBE8FB),
-      body: Column(
+    return PageWidget(
+      child: Column(
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, top: 90),

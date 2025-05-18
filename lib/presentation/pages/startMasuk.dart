@@ -4,6 +4,7 @@ import 'package:kelas_pintar/presentation/pages/sign_in_page.dart';
 import 'package:kelas_pintar/presentation/pages/sign_in_page_guru.dart';
 import 'package:kelas_pintar/presentation/pages/pilihan.dart';
 import 'package:kelas_pintar/presentation/widgets/button_widget.dart';
+import 'package:kelas_pintar/presentation/widgets/page_widget.dart';
 
 class Startmasuk extends StatelessWidget {
   const Startmasuk({super.key});
@@ -13,9 +14,8 @@ class Startmasuk extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      backgroundColor: const Color(0xFFEBE8FB),
-      body: Stack(
+    return PageWidget(
+      child: Stack(
         children: [
           Column(
             children: [

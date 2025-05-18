@@ -7,6 +7,7 @@ import 'package:kelas_pintar/presentation/pages/kelas/kelas9_page.dart';
 import 'package:kelas_pintar/presentation/pages/mapel_kelas7/senibudaya.dart';
 import 'package:kelas_pintar/presentation/widgets/page_widget.dart';
 import 'package:kelas_pintar/presentation/widgets/button_widget.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:gap/gap.dart';
 import 'dart:math' as math;
 
@@ -20,6 +21,24 @@ class DiscoverPage extends StatefulWidget {
 class _DiscoverPageState extends State<DiscoverPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+  int _selectedIndex = 0;
+
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text('Index 0: Home',
+        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+    Text('Index 1: Favorite',
+        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+    Text('Index 2: Settings',
+        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+    Text('Index 3: haha',
+        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   void initState() {
@@ -38,19 +57,37 @@ class _DiscoverPageState extends State<DiscoverPage>
 
   @override
   Widget build(BuildContext context) {
-    return PageWidget(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            _userInfo(),
-            const Gap(6),
-            _hasilKoinmu(),
-            const Gap(2),
-            _sapaanUser(imageWidth: 235, imageHeight: 235),
-            const PilihKelasWidget(), // <-- Tambahan di sini
-          ],
-        ),
+    return Scaffold(
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: Colors.transparent,
+        color: ColorConstant.primary,
+        animationDuration: const Duration(milliseconds: 300),
+        items: const <Widget>[
+          Icon(Icons.home, size: 30, color: Colors.white),
+          Icon(Icons.favorite, size: 30, color: Colors.white),
+          Icon(Icons.settings, size: 30, color: Colors.white),
+          Icon(Icons.person, size: 30, color: Colors.white),
+        ],
+        onTap: _onItemTapped,
       ),
+      body: _selectedIndex == 0
+          ? PageWidget(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    _userInfo(),
+                    const Gap(6),
+                    _hasilKoinmu(),
+                    const Gap(2),
+                    _sapaanUser(imageWidth: 235, imageHeight: 235),
+                    const PilihKelasWidget(),
+                  ],
+                ),
+              ),
+            )
+          : Center(
+              child: _widgetOptions.elementAt(_selectedIndex),
+            ),
     );
   }
 
@@ -511,6 +548,7 @@ class PilihKelasWidget extends StatelessWidget {
               ),
             ),
           ),
+          const Gap(20),
         ],
       ),
     );

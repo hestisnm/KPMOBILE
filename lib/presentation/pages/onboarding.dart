@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:gap/gap.dart';
 import 'package:kelas_pintar/presentation/pages/pilihan.dart';
 import 'package:kelas_pintar/presentation/widgets/button_widget.dart';
+import 'package:kelas_pintar/presentation/widgets/page_widget.dart';
 import 'package:kelas_pintar/constants/color_constant.dart';
 
 class OnboardingPage extends StatefulWidget {
@@ -63,9 +64,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      backgroundColor: const Color(0xFFEBE8FB),
-      body: Column(
+    return PageWidget(
+      child: Column(
         children: [
           Expanded(
             child: PageView.builder(
@@ -147,9 +147,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   ButtonWidget(
                     text: 'Kembali',
                     isFullWidth: true,
-                    backgroundColor:
-                        const Color(0xFFEBE8FB), // warna latar putih keunguan
-                    textColor: ColorConstant.primary, // warna teks ungu
+                    backgroundColor: const Color(0xFFEBE8FB),
+                    textColor: ColorConstant.primary,
                     onPressed: _previousPage,
                   ),
                 ],

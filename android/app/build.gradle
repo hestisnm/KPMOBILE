@@ -9,6 +9,7 @@ android {
     namespace = "com.example.kelas_pintar"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
+    ndkVersion = "25.2.9519653"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8

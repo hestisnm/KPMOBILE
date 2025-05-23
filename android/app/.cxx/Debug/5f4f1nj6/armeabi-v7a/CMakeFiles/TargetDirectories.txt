@@ -1,0 +1,2 @@
+C:/flutter/pas_mobile/coba4/kelas_pintar/android/app/.cxx/Debug/5f4f1nj6/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/flutter/pas_mobile/coba4/kelas_pintar/android/app/.cxx/Debug/5f4f1nj6/armeabi-v7a/CMakeFiles/rebuild_cache.dir

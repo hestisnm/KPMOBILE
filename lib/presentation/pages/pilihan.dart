@@ -3,7 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:gap/gap.dart';
 import 'package:kelas_pintar/presentation/pages/start.dart';
 import 'package:kelas_pintar/presentation/pages/startMasuk.dart';
-import 'package:kelas_pintar/presentation/pages/buat_kode_sekolah.dart'; // Tambahan: Import halaman BuatKodeSekolah
+import 'package:kelas_pintar/presentation/pages/buat_kode_sekolah.dart';
+import 'package:kelas_pintar/presentation/pages/sign_up_page.dart';
+import 'package:kelas_pintar/presentation/pages/sign_up_page_guru.dart';
+import 'package:kelas_pintar/presentation/pages/sign_in_page.dart';
+import 'package:kelas_pintar/presentation/pages/sign_in_page_guru.dart';
 import 'package:kelas_pintar/presentation/widgets/button_widget.dart';
 import 'package:kelas_pintar/presentation/widgets/page_widget.dart';
 
@@ -11,10 +15,10 @@ class Pilihan extends StatefulWidget {
   const Pilihan({super.key});
 
   @override
-  State<Pilihan> createState() => _OnboardingViewState();
+  State<Pilihan> createState() => _PilihanState();
 }
 
-class _OnboardingViewState extends State<Pilihan> {
+class _PilihanState extends State<Pilihan> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -61,11 +65,7 @@ class _OnboardingViewState extends State<Pilihan> {
                   text: "DAFTAR",
                   isFullWidth: true,
                   onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => const Start(),
-                      ),
-                    );
+                    _showRoleSelectionSheet(context, isDaftar: true);
                   },
                 ),
                 const SizedBox(height: 12),
@@ -73,11 +73,7 @@ class _OnboardingViewState extends State<Pilihan> {
                   text: "MASUK",
                   isFullWidth: true,
                   onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => const Startmasuk(),
-                      ),
-                    );
+                    _showRoleSelectionSheet(context, isDaftar: false);
                   },
                 ),
                 const SizedBox(height: 30),
@@ -109,6 +105,73 @@ class _OnboardingViewState extends State<Pilihan> {
           ),
         ],
       ),
+    );
+  }
+
+  void _showRoleSelectionSheet(BuildContext context, {required bool isDaftar}) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+      ),
+      builder: (context) {
+        return FractionallySizedBox(
+          heightFactor: 0.5,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                const SizedBox(height: 12),
+                Text(
+                  "Belajar bersama, Sukses semua",
+                  style: GoogleFonts.poppins(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  "Ayo daftarkan dirimu sebagai..",
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                  ),
+                ),
+                const Spacer(),
+                ButtonWidget(
+                  text: "Guru",
+                  isFullWidth: true,
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Tutup bottom sheet
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => isDaftar
+                            ? const SignUpPageGuru()
+                            : const SignInPageGuru(),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 12),
+                ButtonWidget(
+                  text: "Murid",
+                  isFullWidth: true,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            isDaftar ? const SignUpPage() : const SignInPage(),
+                      ),
+                    );
+                  },
+                ),
+                const Spacer(),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

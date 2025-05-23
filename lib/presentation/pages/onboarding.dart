@@ -75,7 +75,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
               itemBuilder: (context, index) {
                 final page = _pages[index];
                 return Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
+                  padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
                   child: Column(
                     children: [
                       Center(

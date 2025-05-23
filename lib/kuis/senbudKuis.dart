@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kelas_pintar/constants/color_constant.dart';
 import 'package:kelas_pintar/kuis/selesaiKuis.dart';
 import 'package:kelas_pintar/presentation/pages/discover_page.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -164,7 +165,7 @@ class _QuizPageState extends State<QuizPage> {
                   ElevatedButton(
                     onPressed: _showSubmitConfirmation,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFB8CCF3),
+                      backgroundColor: ColorConstant.primary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
@@ -242,7 +243,7 @@ class _QuizPageState extends State<QuizPage> {
                           vertical: 16, horizontal: 16),
                       decoration: BoxDecoration(
                         color: isSelected
-                            ? const Color(0xFFC7DDFB)
+                            ? ColorConstant.primary
                             : const Color(0xFFE2DFFE),
                         borderRadius: BorderRadius.circular(18),
                         boxShadow: [

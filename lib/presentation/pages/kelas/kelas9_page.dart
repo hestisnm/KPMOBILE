@@ -2,6 +2,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kelas_pintar/constants/color_constant.dart';
+import 'package:kelas_pintar/presentation/pages/notifikasi.dart';
 import 'package:kelas_pintar/presentation/widgets/page_widget.dart';
 import 'package:gap/gap.dart';
 import 'package:kelas_pintar/presentation/pages/mapel_kelas7/senibudaya.dart';
@@ -55,6 +56,7 @@ class _Kelas9PageState extends State<Kelas9Page>
                   padding: const EdgeInsets.all(2),
                   decoration: BoxDecoration(
                     color: Colors.transparent,
+                    border: Border.all(color: ColorConstant.primary),
                     borderRadius: BorderRadius.circular(25),
                   ),
                   child: Image.asset('assets/images/user_profile.png'),
@@ -95,13 +97,19 @@ class _Kelas9PageState extends State<Kelas9Page>
                 ),
               ],
             ),
-            CircleAvatar(
-              child: IconButton(
-                onPressed: () {},
-                color: Colors.black,
-                icon: const Icon(Icons.notification_add),
-              ),
-            )
+           CircleAvatar(
+  child: IconButton(
+    onPressed: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Notifikasi()),
+      );
+    },
+    color: Colors.black,
+    icon: const Icon(Icons.notification_add),
+  ),
+)
+
           ],
         ),
       );

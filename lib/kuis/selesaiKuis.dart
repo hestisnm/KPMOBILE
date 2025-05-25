@@ -1,21 +1,24 @@
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:confetti/confetti.dart';
-import 'dart:math';
-
+import 'package:flutter/material.dart';
+import 'package:kelas_pintar/constants/color_constant.dart';
+import 'package:kelas_pintar/presentation/pages/discover_page.dart';
+import 'package:kelas_pintar/presentation/pages/peringkat.dart';
+import 'package:kelas_pintar/presentation/widgets/button_widget.dart';
 import 'package:kelas_pintar/presentation/widgets/page_widget.dart';
 
 class HasilKuisPage extends StatefulWidget {
+  final int nilai;
   final int jawabanBenar;
   final int jawabanSalah;
-  final int koin;
+  final int koinDiperoleh;
 
   const HasilKuisPage({
-    super.key,
+    Key? key,
+    required this.nilai,
     required this.jawabanBenar,
     required this.jawabanSalah,
-    required this.koin,
-  });
+    required this.koinDiperoleh,
+  }) : super(key: key);
 
   @override
   State<HasilKuisPage> createState() => _HasilKuisPageState();
@@ -29,7 +32,7 @@ class _HasilKuisPageState extends State<HasilKuisPage> {
     super.initState();
     _confettiController =
         ConfettiController(duration: const Duration(seconds: 3));
-    _confettiController.play(); // otomatis main saat halaman muncul
+    _confettiController.play();
   }
 
   @override
@@ -41,156 +44,187 @@ class _HasilKuisPageState extends State<HasilKuisPage> {
   @override
   Widget build(BuildContext context) {
     return PageWidget(
-      child: Stack(
-        children: [
-          SafeArea(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.asset(
-                  'assets/images/win_koala.png',
-                  height: 180,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final maxWidth = constraints.maxWidth;
+          final maxHeight = constraints.maxHeight;
+
+          // Responsive sizes
+          final containerWidth = maxWidth * 0.85;
+          final trophyHeight = maxHeight * 0.12;
+          final paddingHorizontal = maxWidth * 0.04;
+          final iconSize = maxWidth * 0.07;
+          final fontSizeTitle = maxWidth * 0.055;
+          final fontSizeSubtitle = maxWidth * 0.04;
+          final fontSizeInfo = maxWidth * 0.035;
+
+          return Stack(
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: ConfettiWidget(
+                  confettiController: _confettiController,
+                  blastDirectionality: BlastDirectionality.explosive,
+                  shouldLoop: false,
+                  numberOfParticles: 30,
+                  colors: const [
+                    Colors.red,
+                    Colors.green,
+                    Colors.blue,
+                    Colors.orange,
+                    Colors.purple,
+                  ],
+                  gravity: 0.2,
+                  emissionFrequency: 0.05,
                 ),
-                Text(
-                  'SELAMAT, KAMU TELAH\nMENYELESAIKAN KUIS DENGAN BAIK!',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 24),
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
-                      )
-                    ],
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Column(
-                        children: [
-                          const Icon(Icons.close,
-                              color: Colors.purple, size: 32),
-                          Text(
-                            '${widget.jawabanSalah}',
-                            style: GoogleFonts.poppins(fontSize: 18),
-                          )
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Image.asset(
-                            'assets/images/koinemas.png',
-                            height: 30,
+              ),
+              Positioned.fill(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Stack(
+                      alignment: Alignment.topCenter,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: maxHeight * 0.08),
+                          padding: EdgeInsets.symmetric(
+                            vertical: maxHeight * 0.02,
+                            horizontal: paddingHorizontal,
                           ),
-                          Text(
-                            '+ ${widget.koin} KOIN',
-                            style: GoogleFonts.poppins(fontSize: 18),
-                          )
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          const Icon(Icons.check,
-                              color: Colors.deepPurple, size: 32),
-                          Text(
-                            '${widget.jawabanBenar}',
-                            style: GoogleFonts.poppins(fontSize: 18),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(context, '/beranda');
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            foregroundColor: Colors.black,
-                            elevation: 4,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
+                          width: containerWidth,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(30),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                            child: Text(
-                              'BERANDA',
-                              style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w600,
+                          child: Column(
+                            children: [
+                              SizedBox(height: maxHeight * 0.01),
+                              Text(
+                                'SELAMAT!',
+                                style: TextStyle(
+                                  fontSize: fontSizeTitle,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black87,
+                                ),
                               ),
-                            ),
+                              SizedBox(height: maxHeight * 0.008),
+                              Text(
+                                'Kamu mendapatkan nilai ${widget.nilai}',
+                                style: TextStyle(
+                                  fontSize: fontSizeSubtitle,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                              SizedBox(height: maxHeight * 0.025),
+                              const Divider(thickness: 1, color: Colors.grey),
+                              SizedBox(height: maxHeight * 0.01),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  _buildInfo(
+                                    icon: Icons.monetization_on,
+                                    label: '+ ${widget.koinDiperoleh} KOIN',
+                                    color: Colors.orange,
+                                    iconSize: iconSize,
+                                    fontSize: fontSizeInfo,
+                                  ),
+                                  _buildInfo(
+                                    icon: Icons.check_circle,
+                                    label: '${widget.jawabanBenar}',
+                                    color: Colors.green,
+                                    iconSize: iconSize,
+                                    fontSize: fontSizeInfo,
+                                  ),
+                                  _buildInfo(
+                                    icon: Icons.cancel,
+                                    label: '${widget.jawabanSalah}',
+                                    color: Colors.red,
+                                    iconSize: iconSize,
+                                    fontSize: fontSizeInfo,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: maxHeight * 0.02),
+                            ],
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(
-                                context, '/peringkat');
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFD0CCFF),
-                            foregroundColor: Colors.black,
-                            elevation: 4,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                            child: Text(
-                              'PERINGKAT',
-                              style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
+                        Positioned(
+                          top: 0,
+                          child: Image.asset(
+                            'assets/images/trophy.png',
+                            height: trophyHeight,
+                            fit: BoxFit.contain,
                           ),
                         ),
+                      ],
+                    ),
+                    SizedBox(height: maxHeight * 0.04),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: paddingHorizontal),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: ButtonWidget(
+                              text: 'Batal',
+                              isFullWidth: true,
+                              onPressed: () {
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (context) => DiscoverPage(),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          SizedBox(width: maxWidth * 0.04),
+                          Expanded(
+                            child: ButtonWidget(
+                              text: 'Rank',
+                              isFullWidth: true,
+                              onPressed: () {
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (context) => PeringkatPage(),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          // Confetti widget di tengah atas layar
-          Align(
-            alignment: Alignment.topCenter,
-            child: ConfettiWidget(
-              confettiController: _confettiController,
-              blastDirection: pi / 2, // ke bawah
-              emissionFrequency: 0.05,
-              numberOfParticles: 30,
-              gravity: 0.3,
-              colors: const [
-                Colors.deepPurple,
-                Colors.purpleAccent,
-                Colors.yellow,
-                Colors.orange,
-              ],
-            ),
-          ),
-        ],
+                    ),
+                    SizedBox(height: maxHeight * 0.04),
+                  ],
+                ),
+              ),
+            ],
+          );
+        },
       ),
+    );
+  }
+
+  Widget _buildInfo({
+    required IconData icon,
+    required String label,
+    required Color color,
+    required double iconSize,
+    required double fontSize,
+  }) {
+    return Column(
+      children: [
+        Icon(icon, color: color, size: iconSize),
+        SizedBox(height: fontSize * 0.5),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: fontSize,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ],
     );
   }
 }

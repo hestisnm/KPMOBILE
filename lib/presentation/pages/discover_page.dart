@@ -47,7 +47,7 @@ class _DiscoverPageState extends State<DiscoverPage>
             const Gap(6),
             _hasilKoinmu(),
             const Gap(2),
-            _sapaanUser(imageWidth: 235, imageHeight: 235),
+            _sapaanUser(),
             const PilihKelasWidget(),
           ],
         ),
@@ -166,7 +166,7 @@ class _DiscoverPageState extends State<DiscoverPage>
         ),
       );
 
-  Widget _sapaanUser({double imageWidth = 260, double imageHeight = 260}) {
+  Widget _sapaanUser() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Stack(
@@ -221,11 +221,11 @@ class _DiscoverPageState extends State<DiscoverPage>
             ),
           ),
           Positioned(
-            right: -40,
-            top: -56,
+            right: -15,
+            top: -25,
             child: SizedBox(
-              width: imageWidth,
-              height: imageHeight,
+              width: 210,
+              height: 205,
               child: Image.asset(
                 'assets/images/happy_koala.png',
                 fit: BoxFit.contain,

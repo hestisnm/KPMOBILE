@@ -7,6 +7,8 @@ import 'package:kelas_pintar/presentation/pages/kelas/kelas7_page.dart';
 import 'package:kelas_pintar/presentation/pages/kelas/kelas8_page.dart';
 import 'package:kelas_pintar/presentation/pages/kelas/kelas9_page.dart';
 import 'package:kelas_pintar/presentation/pages/navbar.dart';
+import 'package:kelas_pintar/presentation/pages/profil.dart';
+import 'package:kelas_pintar/presentation/pages/winPage.dart';
 
 class MainNavigation extends StatefulWidget {
   @override
@@ -19,7 +21,8 @@ class _MainNavigationState extends State<MainNavigation> {
   final List<Widget> _pages = [
     DiscoverPage(),
     Kelas7Page(),
-    
+    WinPage(),
+    Profil()
   ];
 
   @override
@@ -43,7 +46,7 @@ class _MainNavigationState extends State<MainNavigation> {
           Icon(Icons.person, size: 35, color: Colors.white),
         ],
       ),
-      body: _pages[_selectedIndex],
+      body: Center(child: Text('Halaman ${_selectedIndex + 1}')),
     );
   }
 }

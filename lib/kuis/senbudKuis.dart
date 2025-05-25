@@ -18,8 +18,12 @@ void main() {
 class Question {
   final String text;
   final List<String> options;
+  final int correctAnswerIndex; // Add this
 
-  Question({required this.text, required this.options});
+  Question(
+      {required this.text,
+      required this.options,
+      required this.correctAnswerIndex});
 }
 
 class QuizPage extends StatefulWidget {
@@ -40,11 +44,14 @@ class _QuizPageState extends State<QuizPage> {
         'Untuk olahraga',
         'Sebagai makanan'
       ],
+      correctAnswerIndex:
+          1, // Example: Assuming 'Sebagai upacara adat' is correct
     ),
     Question(
       text:
           'Aliqua ex eiusmod pariatur id do ipsum. Deserunt fugiat reprehenderit deserunt deserunt cillum nulla ullamco minim. Elit aliquip esse dolore id incididunt ut magna dolor fugiat ut dolore excepteur proident. Commodo et do occaecat id proident.',
       options: ['Sasando', 'Gamelan', 'Angklung', 'Kolintang'],
+      correctAnswerIndex: 0, // Example: Assuming 'Sasando' is correct
     ),
     Question(
       text:
@@ -55,11 +62,13 @@ class _QuizPageState extends State<QuizPage> {
         'Putih dan hitam',
         'Abu-abu'
       ],
+      correctAnswerIndex: 2, // Example: Assuming 'Putih dan hitam' is correct
     ),
     Question(
       text:
           'Siapa tokoh terkenal dalam seni rupa modern Indonesia yang dikenal dengan gaya dekoratifnya?',
       options: ['Affandi', 'Raden Saleh', 'Basuki Abdullah', 'I Nyoman Nuarta'],
+      correctAnswerIndex: 3, // Example: Assuming 'I Nyoman Nuarta' is correct
     ),
   ];
 
@@ -89,6 +98,18 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   void _showSubmitConfirmation() {
+    int correctCount = 0;
+    selectedAnswers.forEach((questionIndex, selectedIndex) {
+      if (questionIndex < questions.length &&
+          selectedIndex == questions[questionIndex].correctAnswerIndex) {
+        correctCount++;
+      }
+    });
+
+    int incorrectCount = selectedAnswers.length - correctCount;
+    // Consider questions that were not answered as incorrect as well
+    incorrectCount += questions.length - selectedAnswers.length;
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -119,9 +140,10 @@ class _QuizPageState extends State<QuizPage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => HasilKuisPage(
-                    jawabanBenar: selectedAnswers.length,
-                    jawabanSalah: questions.length - selectedAnswers.length,
-                    koin: 20,
+                    jawabanBenar: correctCount,
+                    jawabanSalah: incorrectCount,
+                    nilai: (correctCount / questions.length * 100).toInt(), // Calculate score
+                    koinDiperoleh: correctCount * 10, // Example: 10 coins per correct answer
                   ),
                 ),
               );

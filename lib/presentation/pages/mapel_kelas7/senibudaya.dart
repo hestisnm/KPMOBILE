@@ -5,17 +5,21 @@ import 'package:kelas_pintar/constants/color_constant.dart';
 import 'package:gap/gap.dart';
 import 'package:kelas_pintar/kuis/senbudKuis.dart';
 import 'package:kelas_pintar/kuis/startKuisPage.dart';
+import 'package:kelas_pintar/presentation/pages/notifikasi.dart';
+import 'package:kelas_pintar/presentation/pages/profil.dart';
 import 'package:kelas_pintar/presentation/widgets/page_widget.dart';
 
 class QuizItem {
   final String title;
   final String dateTime;
   final bool isCompleted;
+  final int? score;
 
   QuizItem({
     required this.title,
     required this.dateTime,
     this.isCompleted = false,
+    this.score,
   });
 }
 
@@ -49,11 +53,15 @@ class _PelajaranSeniPageState extends State<PelajaranSeniPage>
     QuizItem(title: 'Kuis Seni Tari', dateTime: 'Sept 2 2025 14.00'),
     QuizItem(title: 'Kuis Musik Tradisional', dateTime: 'Sept 4 2025 10.00'),
     QuizItem(
-        title: 'Kuis Wayang', dateTime: 'Sept 7 2025 08.00', isCompleted: true),
+        title: 'Kuis Wayang',
+        dateTime: 'Sept 7 2025 08.00',
+        isCompleted: true,
+        score: 85),
     QuizItem(
         title: 'Kuis Alat Musik',
         dateTime: 'Sept 10 2025 13.00',
-        isCompleted: true),
+        isCompleted: true,
+        score: 90),
   ];
 
   late AnimationController _controller;
@@ -74,54 +82,78 @@ class _PelajaranSeniPageState extends State<PelajaranSeniPage>
   }
 
   Widget _userInfo() => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              width: 50,
-              height: 50,
-              padding: const EdgeInsets.all(2),
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                border: Border.all(color: ColorConstant.primary),
-                borderRadius: BorderRadius.circular(50 / 2),
-              ),
-              child: Image.asset('assets/images/user_profile.png'),
-            ),
-            const SizedBox(width: 12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
               children: [
-                Row(
-                  children: [
-                    Text(
-                      'Selamat Pagi!',
-                      style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 14,
-                        color: Colors.black,
-                      ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Profil()),
+                    );
+                  },
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    padding: const EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      border: Border.all(color: ColorConstant.primary),
+                      borderRadius: BorderRadius.circular(25),
                     ),
-                    const SizedBox(width: 4),
-                    AnimatedBuilder(
-                      animation: _controller,
-                      child: Image.asset(
-                        'assets/images/tangan.png',
-                        width: 30,
-                        height: 30,
-                      ),
-                      builder: (context, child) {
-                        return Transform.rotate(
-                          angle: 0.5 *
-                              math.sin(_controller.value * 0.30 * math.pi),
-                          child: child,
-                        );
-                      },
+                    child: Image.asset('assets/images/user_profile.png'),
+                  ),
+                ),
+                const Gap(12),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          'Selamat Pagi!',
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14,
+                            color: Colors.black,
+                          ),
+                        ),
+                        AnimatedBuilder(
+                          animation: _controller,
+                          child: Image.asset(
+                            'assets/images/tangan.png',
+                            width: 30,
+                            height: 30,
+                          ),
+                          builder: (context, child) {
+                            return Transform.rotate(
+                              angle: 0.5 *
+                                  math.sin(_controller.value * 0.30 * math.pi),
+                              child: child,
+                            );
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ],
             ),
+            CircleAvatar(
+              child: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Notifikasi()),
+                  );
+                },
+                color: Colors.black,
+                icon: const Icon(Icons.notification_add),
+              ),
+            )
           ],
         ),
       );
@@ -203,8 +235,7 @@ class _PelajaranSeniPageState extends State<PelajaranSeniPage>
                             Navigator.pop(context);
                             Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (_) => QuizPage()),
+                              MaterialPageRoute(builder: (_) => QuizPage()),
                             );
                           },
                           icon: const Icon(Icons.check_circle),
@@ -261,14 +292,21 @@ class _PelajaranSeniPageState extends State<PelajaranSeniPage>
               ],
             ),
           ),
-          if (quiz.isCompleted)
+          if (quiz.isCompleted && quiz.score != null)
             Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Color.fromARGB(255, 197, 180, 255),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 197, 180, 255),
+                borderRadius: BorderRadius.circular(20),
               ),
-              padding: const EdgeInsets.all(12),
-              child: const Icon(Icons.check, color: Colors.white, size: 24),
+              child: Text(
+                '${quiz.score}%',
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                  color: Colors.white,
+                ),
+              ),
             ),
         ],
       ),
@@ -325,8 +363,8 @@ class _PelajaranSeniPageState extends State<PelajaranSeniPage>
                   Text(
                     'DAFTAR KUIS',
                     style: GoogleFonts.poppins(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   const SizedBox(height: 16),

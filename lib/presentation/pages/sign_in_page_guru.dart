@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kelas_pintar/guru/discoveryGuru.dart';
 import 'package:kelas_pintar/presentation/pages/discover_page.dart';
 import 'package:kelas_pintar/presentation/pages/sign_up_page.dart';
 import 'package:kelas_pintar/presentation/pages/sign_up_page_guru.dart';
@@ -101,7 +102,7 @@ class SignInPageGuru extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
-                              builder: (context) => const DiscoverPage(),
+                              builder: (context) => DiscoveryPageGuru(),
                             ));
                           },
                         );

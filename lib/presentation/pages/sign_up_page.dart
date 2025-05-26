@@ -7,131 +7,164 @@ import 'package:kelas_pintar/presentation/widgets/input_widget.dart';
 import 'package:kelas_pintar/presentation/widgets/page_widget.dart';
 import 'package:gap/gap.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
   @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  String? selectedKelas;
+
+  @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final screenHeight = mediaQuery.size.height;
+    final isSmallHeight = screenHeight < 600;
+
     return PageWidget(
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          double paddingValue = constraints.maxWidth < 400 ? 16 : 25;
-          double formPaddingHorizontal = constraints.maxWidth < 400 ? 20 : 54;
-          double titleFontSize = constraints.maxWidth < 400 ? 20 : 24;
+      child: SafeArea(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            double paddingValue = constraints.maxWidth < 400 ? 16 : 25;
+            double formPaddingHorizontal = constraints.maxWidth < 400 ? 20 : 54;
+            double titleFontSize = constraints.maxWidth < 400 ? 20 : 24;
 
-          return Padding(
-            padding: EdgeInsets.all(paddingValue),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _body(formPaddingHorizontal, titleFontSize),
-                const Gap(20),
-                Text(
-                  'Sudah punya akun?',
-                  style: GoogleFonts.poppins(fontSize: 14),
+            return Padding(
+              padding: EdgeInsets.all(paddingValue),
+              child: SingleChildScrollView(
+                padding: EdgeInsets.only(
+                  bottom: mediaQuery.viewInsets.bottom + 20,
                 ),
-                const Gap(5),
-                 GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SignInPage()),
-                    );
-                  },
-                  child: Text(
-                    'Masuk',
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  SingleChildScrollView _body(
-      double formPaddingHorizontal, double titleFontSize) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const Gap(20),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40),
-            child: Text(
-              'Hallo!\nSelamat Datang!',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.poppins(
-                fontWeight: FontWeight.bold,
-                fontSize: titleFontSize,
-              ),
-            ),
-          ),
-          const Gap(20),
-          Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: formPaddingHorizontal, vertical: 30),
-            decoration: BoxDecoration(
-              color: Colors.transparent,
-            ),
-            child: Column(
-              children: [
-                const InputWidget(
-                  lable: 'Nama Pengguna',
-                ),
-                const Gap(15),
-                const InputWidget(
-                  lable: 'NIS',
-                ),
-                const Gap(15),
-                const InputWidget(
-                  lable: 'Kode Sekolah',
-                ),
-                const Gap(25),
-                Row(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Flexible(
-                      flex: 1,
-                      child: Builder(builder: (context) {
-                        return ButtonWidget(
-                          text: 'Daftar',
-                          isFullWidth: true,
-                          onPressed: () {
-                            Navigator.of(context)
-                                .pushReplacement(MaterialPageRoute(
-                              builder: (context) => const SignInPage(),
-                            ));
-                          },
-                        );
-                      }),
+                    const Gap(20),
+                    Center(
+                      child: Text(
+                        'Hallo!\nSelamat Datang!',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.bold,
+                          fontSize: titleFontSize,
+                        ),
+                      ),
                     ),
-                    const SizedBox(width: 8),
-                    Flexible(
-                      flex: 1,
-                      child: Builder(builder: (context) {
-                        return ButtonWidget(
-                          text: 'Batal',
-                          isFullWidth: true,
-                          onPressed: () {
-                            Navigator.of(context)
-                                .pushReplacement(MaterialPageRoute(
-                              builder: (context) => const Start(),
-                            ));
-                          },
-                        );
-                      }),
+                    const Gap(20),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: formPaddingHorizontal,
+                        vertical: 30,
+                      ),
+                      decoration: const BoxDecoration(
+                        color: Colors.transparent,
+                      ),
+                      child: Column(
+                        children: [
+                          const InputWidget(lable: 'Nama Pengguna'),
+                          const Gap(15),
+                          const InputWidget(lable: 'NIS'),
+                          const Gap(15),
+                          const InputWidget(lable: 'Kode Sekolah'),
+                          const Gap(15),
+                          DropdownButtonFormField<String>(
+                            value: selectedKelas,
+                            hint: const Text('Pilih Kelas'),
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                            ),
+                            items: ['7', '8', '9'].map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text('Kelas $value'),
+                              );
+                            }).toList(),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                selectedKelas = newValue;
+                              });
+                            },
+                          ),
+                          const Gap(25),
+                          Row(
+                            children: [
+                              Flexible(
+                                flex: 1,
+                                child: ButtonWidget(
+                                  text: 'Daftar',
+                                  isFullWidth: true,
+                                  onPressed: () {
+                                    if (selectedKelas == null) {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                          content: Text('Silakan pilih kelas terlebih dahulu'),
+                                        ),
+                                      );
+                                      return;
+                                    }
+                                    Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(builder: (_) => const SignInPage()),
+                                    );
+                                  },
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Flexible(
+                                flex: 1,
+                                child: ButtonWidget(
+                                  text: 'Batal',
+                                  isFullWidth: true,
+                                  onPressed: () {
+                                    Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(builder: (_) => const Start()),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
+                    const Gap(20),
+                    Center(
+                      child: Column(
+                        children: [
+                          Text(
+                            'Sudah punya akun?',
+                            style: GoogleFonts.poppins(fontSize: 14),
+                          ),
+                          const Gap(5),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (_) => const SignInPage()),
+                              );
+                            },
+                            child: Text(
+                              'Masuk',
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    if (isSmallHeight) const Gap(40), // beri ruang ekstra di device kecil
                   ],
                 ),
-              ],
-            ),
-          ),
-        ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

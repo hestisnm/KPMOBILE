@@ -104,6 +104,7 @@ class _HasilKuisPageState extends State<HasilKuisPage> {
                                 style: TextStyle(
                                   fontSize: fontSizeTitle,
                                   fontWeight: FontWeight.bold,
+                                  fontFamily: 'Poppins',
                                   color: Colors.black87,
                                 ),
                               ),
@@ -112,6 +113,7 @@ class _HasilKuisPageState extends State<HasilKuisPage> {
                                 'Kamu mendapatkan nilai ${widget.nilai}',
                                 style: TextStyle(
                                   fontSize: fontSizeSubtitle,
+                                  fontFamily: 'Poppins',
                                   color: Colors.black54,
                                 ),
                               ),
@@ -222,6 +224,7 @@ class _HasilKuisPageState extends State<HasilKuisPage> {
           style: TextStyle(
             fontSize: fontSize,
             fontWeight: FontWeight.w600,
+            fontFamily: 'Poppins',
           ),
         ),
       ],

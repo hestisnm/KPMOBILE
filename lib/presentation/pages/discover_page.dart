@@ -6,6 +6,7 @@ import 'package:kelas_pintar/presentation/pages/kelas/kelas8_page.dart';
 import 'package:kelas_pintar/presentation/pages/kelas/kelas9_page.dart';
 import 'package:kelas_pintar/presentation/pages/mapel_kelas7/senibudaya.dart';
 import 'package:kelas_pintar/presentation/pages/notifikasi.dart';
+import 'package:kelas_pintar/presentation/pages/profil.dart';
 import 'package:kelas_pintar/presentation/widgets/page_widget.dart';
 import 'package:kelas_pintar/presentation/widgets/button_widget.dart';
 import 'package:gap/gap.dart';
@@ -62,16 +63,24 @@ class _DiscoverPageState extends State<DiscoverPage>
           children: [
             Row(
               children: [
-                Container(
-                  width: 50,
-                  height: 50,
-                  padding: const EdgeInsets.all(2),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    border: Border.all(color: ColorConstant.primary),
-                    borderRadius: BorderRadius.circular(25),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Profil()),
+                    );
+                  },
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    padding: const EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      border: Border.all(color: ColorConstant.primary),
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    child: Image.asset('assets/images/user_profile.png'),
                   ),
-                  child: Image.asset('assets/images/user_profile.png'),
                 ),
                 const Gap(12),
                 Column(

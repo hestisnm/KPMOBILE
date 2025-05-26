@@ -15,11 +15,11 @@ class PeringkatPage extends StatefulWidget {
 class _PeringkatPageState extends State<PeringkatPage>
     with TickerProviderStateMixin {
   final List<Map<String, dynamic>> allRank = [
-    {'nama': 'Sunjae', 'nilai': 80, 'koin': 4600},
-    {'nama': 'Surya', 'nilai': 80, 'koin': 4600},
-    {'nama': 'Peter', 'nilai': 80, 'koin': 4600},
-    {'nama': 'Hesti', 'nilai': 78, 'koin': 4000},
-    {'nama': 'Agnes', 'nilai': 75, 'koin': 3900},
+    {'nama': 'Satya', 'nilai': 1220, 'koin': 8400},
+    {'nama': 'Surya', 'nilai': 1210, 'koin': 6600},
+    {'nama': 'Peter', 'nilai': 180, 'koin': 6300},
+    {'nama': 'Bilqis', 'nilai': 178, 'koin': 54000},
+    {'nama': 'Agnes', 'nilai': 175, 'koin': 5300},
   ];
 
   final Map<String, dynamic> userRank = {
@@ -136,26 +136,37 @@ class _PeringkatPageState extends State<PeringkatPage>
   Widget _buildUserRank(Map<String, dynamic> user) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-      color: const Color(0xFFF3F3F3),
+      color: ColorConstant.primary,
       child: ListTile(
         leading: CircleAvatar(
           backgroundColor: Colors.black,
           child: Text(
             user['ranking'].toString(),
-            style: const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold),
+            style: GoogleFonts.poppins(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
-        title: Text(user['nama']),
+        title: Text(
+          user['nama'],
+          style: GoogleFonts.poppins(),
+        ),
         subtitle: Row(
           children: [
             const Icon(Icons.score, size: 16),
             const SizedBox(width: 4),
-            Text(user['nilai'].toString()),
+            Text(
+              user['nilai'].toString(),
+              style: GoogleFonts.poppins(),
+            ),
             const SizedBox(width: 16),
-            const Icon(Icons.remove_red_eye, size: 16, color: Colors.amber),
+            const Icon(Icons.monetization_on, size: 16, color: Colors.amber),
             const SizedBox(width: 4),
-            Text(user['koin'].toString()),
+            Text(
+              user['koin'].toString(),
+              style: GoogleFonts.poppins(),
+            ),
           ],
         ),
       ),
@@ -171,20 +182,31 @@ class _PeringkatPageState extends State<PeringkatPage>
           backgroundColor: Colors.black,
           child: Text(
             '$rank',
-            style: const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold),
+            style: GoogleFonts.poppins(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
-        title: Text(data['nama']),
+        title: Text(
+          data['nama'],
+          style: GoogleFonts.poppins(),
+        ),
         subtitle: Row(
           children: [
             const Icon(Icons.score, size: 16),
             const SizedBox(width: 4),
-            Text('${data['nilai']}'),
+            Text(
+              '${data['nilai']}',
+              style: GoogleFonts.poppins(),
+            ),
             const SizedBox(width: 16),
-            const Icon(Icons.remove_red_eye, size: 16, color: Colors.amber),
+            const Icon(Icons.monetization_on, size: 16, color: Colors.amber),
             const SizedBox(width: 4),
-            Text('${data['koin']}'),
+            Text(
+              '${data['koin']}',
+              style: GoogleFonts.poppins(),
+            ),
           ],
         ),
       ),
@@ -211,21 +233,12 @@ class _PeringkatPageState extends State<PeringkatPage>
           Column(
             children: [
               _userInfo(),
-              const SizedBox(height: 10),
-              const Text(
-                'Peringkat',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 5),
               Padding(
-                padding: const EdgeInsets.only(top: -3),
+                padding: const EdgeInsets.only(top: 2),
                 child: Image.asset(
                   'assets/images/win_koala.png',
-                  height: 190,
+                  height: 210,
                   fit: BoxFit.contain,
                 ),
               ),
@@ -243,17 +256,17 @@ class _PeringkatPageState extends State<PeringkatPage>
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(36),
-                    topRight: Radius.circular(36),
+                    topLeft: Radius.circular(50),
+                    topRight: Radius.circular(50),
                   ),
                 ),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         "Peringkat Anda",
-                        style: TextStyle(
+                        style: GoogleFonts.poppins(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
@@ -261,9 +274,9 @@ class _PeringkatPageState extends State<PeringkatPage>
                       const SizedBox(height: 10),
                       _buildUserRank(userRank),
                       const SizedBox(height: 20),
-                      const Text(
+                      Text(
                         "Cari Nama",
-                        style: TextStyle(
+                        style: GoogleFonts.poppins(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
@@ -273,12 +286,14 @@ class _PeringkatPageState extends State<PeringkatPage>
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.search),
                           hintText: 'Masukkan nama murid...',
+                          hintStyle: GoogleFonts.poppins(),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
                           contentPadding:
                               const EdgeInsets.symmetric(horizontal: 16),
                         ),
+                        style: GoogleFonts.poppins(),
                         onChanged: (value) {
                           setState(() {
                             _searchQuery = value;
@@ -286,9 +301,9 @@ class _PeringkatPageState extends State<PeringkatPage>
                         },
                       ),
                       const SizedBox(height: 20),
-                      const Text(
+                      Text(
                         "Peringkat Semua Murid",
-                        style: TextStyle(
+                        style: GoogleFonts.poppins(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),

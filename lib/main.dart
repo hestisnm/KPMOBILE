@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kelas_pintar/screen/splash_screen.dart';
+import 'mainscreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,8 +14,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      home: MainScreen(),
       
     );
   }
 }
+

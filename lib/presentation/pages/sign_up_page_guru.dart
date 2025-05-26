@@ -114,7 +114,7 @@ class SignUpPageGuru extends StatelessWidget {
                     Flexible(
                       flex: 1,
                       child: Builder(builder: (context) {
-                        return ButtonWidget(
+                        return ButtonWidget(  
                           text: 'Batal',
                           isFullWidth: true,
                           onPressed: () {

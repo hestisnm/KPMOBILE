@@ -247,6 +247,40 @@ class _DiscoverPageState extends State<DiscoverPage>
   }
 }
 
+Widget _elektronikBookCard() {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 20),
+    child: Container(
+      decoration: BoxDecoration(
+        color: Color(0xFFC5BAFF),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              'Elektronik Book',
+              style: GoogleFonts.poppins(
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          const SizedBox(width: 20),
+          Image.asset(
+            'assets/images/buku.png',
+            width: 80,
+            height: 80,
+            fit: BoxFit.contain,
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
 // ============================
 // WIDGET PILIH KELAS
 // ============================

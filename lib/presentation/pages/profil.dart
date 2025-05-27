@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kelas_pintar/constants/color_constant.dart';
 import 'package:kelas_pintar/presentation/pages/notifikasi.dart';
+import 'package:kelas_pintar/presentation/pages/pilihan.dart';
 import 'package:kelas_pintar/presentation/widgets/page_widget.dart';
 import 'package:gap/gap.dart';
+import 'package:kelas_pintar/screen/splash_screen.dart';
 
 class Profil extends StatefulWidget {
   const Profil({super.key});
@@ -136,7 +138,7 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                 child: Stack(
                   clipBehavior: Clip.none,
                   children: [
-                    // Container isi yang bisa discroll
+                    // Konten utama
                     Container(
                       margin: const EdgeInsets.only(top: 80),
                       constraints: BoxConstraints(
@@ -191,13 +193,38 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                                 ),
                               ),
                             ),
+                            const SizedBox(height: 20),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SplashScreen()),
+                                  (route) => false,
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.redAccent,
+                                minimumSize: const Size.fromHeight(50),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                              ),
+                              child: Text(
+                                'LOGOUT',
+                                style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
                             const SizedBox(height: 40),
                           ],
                         ),
                       ),
                     ),
 
-                    // Bulatan profil di tengah
+                    // Avatar profil (bulat di tengah)
                     Positioned(
                       top: 30,
                       left: MediaQuery.of(context).size.width / 2 - 50,
@@ -210,7 +237,9 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                                 AssetImage('assets/images/user_profile.png'),
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              // Tambahkan aksi edit jika diinginkan
+                            },
                             child: CircleAvatar(
                               radius: 16,
                               backgroundColor: Colors.white,

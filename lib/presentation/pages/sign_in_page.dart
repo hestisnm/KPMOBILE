@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kelas_pintar/mainscreen.dart';
 import 'package:kelas_pintar/presentation/pages/sign_up_page.dart';
 import 'package:kelas_pintar/presentation/pages/discover_page.dart';
 import 'package:kelas_pintar/presentation/widgets/button_widget.dart';
@@ -106,7 +107,7 @@ class _SignInPageState extends State<SignInPage> {
                                     }
                                     Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
-                                        builder: (_) => const DiscoverPage(),
+                                        builder: (_) => MainScreen(),
                                       ),
                                     );
                                   },

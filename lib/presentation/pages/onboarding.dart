@@ -63,100 +63,107 @@ class _OnboardingPageState extends State<OnboardingPage> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return PageWidget(
-      child: Column(
-        children: [
-          Expanded(
-            child: PageView.builder(
-              controller: _pageController,
-              itemCount: _pages.length,
-              onPageChanged: (index) => setState(() => _currentPage = index),
-              itemBuilder: (context, index) {
-                final page = _pages[index];
-                return Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
-                  child: Column(
-                    children: [
-                      Center(
-                        child: Image.asset(
-                          page['image'],
-                          width: screenWidth * 0.7,
-                          fit: BoxFit.contain,
+      child: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: PageView.builder(
+                controller: _pageController,
+                itemCount: _pages.length,
+                onPageChanged: (index) => setState(() => _currentPage = index),
+                itemBuilder: (context, index) {
+                  final page = _pages[index];
+                  return Center(
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 40),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Image.asset(
+                              page['image'],
+                              width: screenWidth * 0.7,
+                              fit: BoxFit.contain,
+                            ),
+                            const Gap(30),
+                            Text(
+                              page['title'],
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.poppins(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                height: 1.3,
+                              ),
+                            ),
+                            const Gap(15),
+                            Text(
+                              page['subtitle'],
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                height: 1.5,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      const Gap(20),
-                      Text(
-                        page['title'],
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          height: 1.3,
-                        ),
-                      ),
-                      const Gap(10),
-                      Text(
-                        page['subtitle'],
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          height: 1.3,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
+                    ),
+                  );
+                },
+              ),
             ),
-          ),
-          const Gap(20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(
-              _pages.length,
-              (index) => AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                margin: const EdgeInsets.symmetric(horizontal: 4),
-                width: _currentPage == index ? 12 : 8,
-                height: 8,
-                decoration: BoxDecoration(
-                  color: _currentPage == index
-                      ? Colors.deepPurple
-                      : Colors.deepPurple.shade200,
-                  borderRadius: BorderRadius.circular(4),
+            const Gap(20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                _pages.length,
+                (index) => AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  margin: const EdgeInsets.symmetric(horizontal: 4),
+                  width: _currentPage == index ? 12 : 8,
+                  height: 8,
+                  decoration: BoxDecoration(
+                    color: _currentPage == index
+                        ? Colors.deepPurple
+                        : Colors.deepPurple.shade200,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
                 ),
               ),
             ),
-          ),
-          const Gap(30),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40),
-            child: Column(
-              children: [
-                ButtonWidget(
-                  text: _currentPage == _pages.length - 1
-                      ? 'Selesai'
-                      : 'Selanjutnya',
-                  isFullWidth: true,
-                  onPressed: _nextPage,
-                ),
-                if (_currentPage > 0) ...[
-                  const Gap(12),
+            const Gap(30),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child: Column(
+                children: [
                   ButtonWidget(
-                    text: 'Kembali',
+                    text: _currentPage == _pages.length - 1
+                        ? 'Selesai'
+                        : 'Selanjutnya',
                     isFullWidth: true,
-                    backgroundColor: const Color(0xFFEBE8FB),
-                    textColor: ColorConstant.primary,
-                    onPressed: _previousPage,
+                    onPressed: _nextPage,
                   ),
+                  if (_currentPage > 0) ...[
+                    const Gap(12),
+                    ButtonWidget(
+                      text: 'Kembali',
+                      isFullWidth: true,
+                      backgroundColor: const Color(0xFFEBE8FB),
+                      textColor: ColorConstant.primary,
+                      onPressed: _previousPage,
+                    ),
+                  ],
                 ],
-              ],
+              ),
             ),
-          ),
-          const Gap(40),
-        ],
+            const Gap(40),
+          ],
+        ),
       ),
     );
   }

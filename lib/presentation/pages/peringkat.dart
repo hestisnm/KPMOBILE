@@ -67,7 +67,7 @@ class _PeringkatPageState extends State<PeringkatPage>
   }
 
   Widget _userInfo() => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
         child: Row(
           children: [
             Container(
@@ -126,7 +126,7 @@ class _PeringkatPageState extends State<PeringkatPage>
                   );
                 },
                 color: Colors.black,
-                icon: const Icon(Icons.notifications),
+                icon: const Icon(Icons.notification_add),
               ),
             )
           ],

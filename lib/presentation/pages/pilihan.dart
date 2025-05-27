@@ -102,8 +102,8 @@ class _PilihanState extends State<Pilihan> {
                             controller: emailController,
                             decoration: InputDecoration(
                               hintText: "Email Sekolah",
-                              hintStyle:
-                                  GoogleFonts.poppins(color: Colors.grey[400]),
+                              hintStyle: GoogleFonts.poppins(
+                                  color: Colors.grey[400]),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
                                 borderSide:
@@ -111,8 +111,8 @@ class _PilihanState extends State<Pilihan> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
-                                borderSide:
-                                    const BorderSide(color: Color(0xFFB9A8FF)),
+                                borderSide: const BorderSide(
+                                    color: Color(0xFFB9A8FF)),
                               ),
                               contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 16, vertical: 12),
@@ -187,16 +187,21 @@ class _PilihanState extends State<Pilihan> {
 
   void _showRoleSelectionSheet(BuildContext context, {required bool isDaftar}) {
     showModalBottomSheet(
-      context: context,
       isScrollControlled: true,
+      context: context,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
       ),
       builder: (context) {
         return FractionallySizedBox(
           heightFactor: 0.5,
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
+          child: SingleChildScrollView(
+            padding: EdgeInsets.only(
+              left: 20,
+              right: 20,
+              top: 20,
+              bottom: MediaQuery.of(context).viewInsets.bottom + 20,
+            ),
             child: Column(
               children: [
                 const SizedBox(height: 12),
@@ -212,7 +217,7 @@ class _PilihanState extends State<Pilihan> {
                   "Ayo daftarkan dirimu sebagai..",
                   style: GoogleFonts.poppins(fontSize: 14),
                 ),
-                const Spacer(),
+                const SizedBox(height: 30),
                 ButtonWidget(
                   text: "Guru",
                   isFullWidth: true,
@@ -229,7 +234,7 @@ class _PilihanState extends State<Pilihan> {
                 ),
                 const SizedBox(height: 12),
                 ButtonWidget(
-                  text: "Murid",
+                  text: "Siswa",
                   isFullWidth: true,
                   onPressed: () {
                     Navigator.of(context).pop();
@@ -241,7 +246,6 @@ class _PilihanState extends State<Pilihan> {
                     );
                   },
                 ),
-                const Spacer(),
               ],
             ),
           ),
@@ -260,7 +264,8 @@ class VerifikasiKodeSekolahPage extends StatefulWidget {
       _VerifikasiKodeSekolahPageState();
 }
 
-class _VerifikasiKodeSekolahPageState extends State<VerifikasiKodeSekolahPage> {
+class _VerifikasiKodeSekolahPageState
+    extends State<VerifikasiKodeSekolahPage> {
   final List<TextEditingController> controllers =
       List.generate(5, (_) => TextEditingController());
   final List<FocusNode> focusNodes = List.generate(5, (_) => FocusNode());
@@ -294,13 +299,17 @@ class _VerifikasiKodeSekolahPageState extends State<VerifikasiKodeSekolahPage> {
           backgroundColor: Colors.red,
         ),
       );
+      for (final controller in controllers) {
+        controller.clear();
+      }
+      focusNodes[0].requestFocus();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF2EBFF), // Warna latar ungu muda
+      backgroundColor: const Color(0xFFF2EBFF),
       appBar: AppBar(
         backgroundColor: const Color(0xFFF2EBFF),
         elevation: 0,
@@ -357,6 +366,9 @@ class _VerifikasiKodeSekolahPageState extends State<VerifikasiKodeSekolahPage> {
                       if (value.isNotEmpty && index < 4) {
                         FocusScope.of(context)
                             .requestFocus(focusNodes[index + 1]);
+                      } else if (value.isEmpty && index > 0) {
+                        FocusScope.of(context)
+                            .requestFocus(focusNodes[index - 1]);
                       }
                     },
                     decoration: const InputDecoration(

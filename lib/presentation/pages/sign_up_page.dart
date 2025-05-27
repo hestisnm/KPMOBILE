@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kelas_pintar/presentation/pages/pilihan.dart';
 import 'package:kelas_pintar/presentation/pages/sign_in_page.dart';
-import 'package:kelas_pintar/presentation/pages/start.dart';
 import 'package:kelas_pintar/presentation/widgets/button_widget.dart';
 import 'package:kelas_pintar/presentation/widgets/input_widget.dart';
 import 'package:kelas_pintar/presentation/widgets/page_widget.dart';
@@ -159,7 +158,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ],
                       ),
                     ),
-                    if (isSmallHeight) const Gap(40), // beri ruang ekstra di device kecil
+                    if (isSmallHeight) const Gap(40), // ekstra ruang untuk device kecil
                   ],
                 ),
               ),

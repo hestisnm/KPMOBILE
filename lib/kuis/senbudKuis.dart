@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kelas_pintar/constants/color_constant.dart';
 import 'package:kelas_pintar/kuis/selesaiKuis.dart';
-import 'package:kelas_pintar/presentation/pages/discover_page.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 void main() {
@@ -18,12 +17,13 @@ void main() {
 class Question {
   final String text;
   final List<String> options;
-  final int correctAnswerIndex; // Add this
+  final int correctAnswerIndex;
 
-  Question(
-      {required this.text,
-      required this.options,
-      required this.correctAnswerIndex});
+  Question({
+    required this.text,
+    required this.options,
+    required this.correctAnswerIndex,
+  });
 }
 
 class QuizPage extends StatefulWidget {
@@ -34,46 +34,75 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  List<Question> questions = [
+  final List<Question> questions = [
     Question(
       text:
-          'Cupidatat esse magna exercitation anim nulla. Minim non commodo aliqua et aliquip id officia non quis. Aliquip sint aliqua nostrud aliquip ad tempor. Irure aliquip ipsum amet velit. Cupidatat esse magna exercitation anim nulla. Minim non commodo aliqua et aliquip id officia non quis. Aliquip sint aliqua nostrud aliquip ad tempor. Irure aliquip ipsum amet velit.',
+          'Cupidatat esse magna exercitation anim nulla. Minim non commodo aliqua et aliquip id officia non quis.',
       options: [
         'Untuk hiburan',
         'Sebagai upacara adat',
         'Untuk olahraga',
         'Sebagai makanan'
       ],
-      correctAnswerIndex:
-          1, // Example: Assuming 'Sebagai upacara adat' is correct
+      correctAnswerIndex: 1,
     ),
     Question(
       text:
-          'Aliqua ex eiusmod pariatur id do ipsum. Deserunt fugiat reprehenderit deserunt deserunt cillum nulla ullamco minim. Elit aliquip esse dolore id incididunt ut magna dolor fugiat ut dolore excepteur proident. Commodo et do occaecat id proident.',
+          'Aliqua ex eiusmod pariatur id do ipsum. Deserunt fugiat reprehenderit deserunt cillum nulla ullamco minim.',
       options: ['Sasando', 'Gamelan', 'Angklung', 'Kolintang'],
-      correctAnswerIndex: 0, // Example: Assuming 'Sasando' is correct
+      correctAnswerIndex: 0,
     ),
     Question(
       text:
-          'Culpa minim enim irure sunt excepteur. Est dolore dolor veniam sunt fugiat tempor exercitation exercitation consectetur occaecat est quis. Cupidatat eiusmod cillum laboris sint velit dolor. Consequat consequat Lorem deserunt est. Ad in elit eu voluptate velit et deserunt duis aute id laborum. Ea et ullamco pariatur tempor duis commodo laborum nostrud consectetur commodo. Mollit Lorem duis ipsum aliquip in proident.',
+          'Culpa minim enim irure sunt excepteur. Est dolore dolor veniam sunt fugiat tempor exercitation.',
       options: [
         'Merah dan emas',
         'Biru dan hijau',
         'Putih dan hitam',
         'Abu-abu'
       ],
-      correctAnswerIndex: 2, // Example: Assuming 'Putih dan hitam' is correct
+      correctAnswerIndex: 2,
     ),
     Question(
       text:
           'Siapa tokoh terkenal dalam seni rupa modern Indonesia yang dikenal dengan gaya dekoratifnya?',
       options: ['Affandi', 'Raden Saleh', 'Basuki Abdullah', 'I Nyoman Nuarta'],
-      correctAnswerIndex: 3, // Example: Assuming 'I Nyoman Nuarta' is correct
+      correctAnswerIndex: 3,
     ),
   ];
 
   int currentQuestionIndex = 0;
   Map<int, int> selectedAnswers = {};
+  final AudioPlayer _player = AudioPlayer();
+  bool _isPlaying = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _playMusic();
+  }
+
+  Future<void> _playMusic() async {
+    await _player.setReleaseMode(ReleaseMode.loop);
+    await _player.play(AssetSource('music/moonlightcoffee.mp3'));
+  }
+
+  Future<void> _stopMusic() async {
+    await _player.stop();
+  }
+
+  @override
+  void dispose() {
+    _player.dispose();
+    super.dispose();
+  }
+
+  void _toggleMusic() {
+    setState(() {
+      _isPlaying = !_isPlaying;
+    });
+    _isPlaying ? _playMusic() : _stopMusic();
+  }
 
   void _selectAnswer(int index) {
     setState(() {
@@ -107,7 +136,6 @@ class _QuizPageState extends State<QuizPage> {
     });
 
     int incorrectCount = selectedAnswers.length - correctCount;
-    // Consider questions that were not answered as incorrect as well
     incorrectCount += questions.length - selectedAnswers.length;
 
     showDialog(
@@ -142,8 +170,8 @@ class _QuizPageState extends State<QuizPage> {
                   builder: (context) => HasilKuisPage(
                     jawabanBenar: correctCount,
                     jawabanSalah: incorrectCount,
-                    nilai: (correctCount / questions.length * 100).toInt(), // Calculate score
-                    koinDiperoleh: correctCount * 10, // Example: 10 coins per correct answer
+                    nilai: (correctCount / questions.length * 100).toInt(),
+                    koinDiperoleh: correctCount * 10,
                   ),
                 ),
               );
@@ -184,24 +212,9 @@ class _QuizPageState extends State<QuizPage> {
                       fontSize: 14,
                     ),
                   ),
-                  ElevatedButton(
-                    onPressed: _showSubmitConfirmation,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: ColorConstant.primary,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 20),
-                    ),
-                    child: Text(
-                      'SELESAI',
-                      style: GoogleFonts.poppins(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
-                    ),
+                  IconButton(
+                    icon: Icon(_isPlaying ? Icons.music_note : Icons.music_off),
+                    onPressed: _toggleMusic,
                   ),
                 ],
               ),
@@ -290,25 +303,34 @@ class _QuizPageState extends State<QuizPage> {
                 },
               ),
             ),
-            if (currentQuestionIndex < questions.length - 1)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30, left: 20, right: 20),
+              child: SizedBox(
+                width: double.infinity,
+                height: 56,
                 child: ElevatedButton(
-                  onPressed: _nextQuestion,
+                  onPressed: currentQuestionIndex < questions.length - 1
+                      ? _nextQuestion
+                      : _showSubmitConfirmation,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepPurple,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 32, vertical: 12),
                   ),
                   child: Text(
-                    'Soal Berikutnya',
-                    style: GoogleFonts.poppins(color: Colors.white),
+                    currentQuestionIndex < questions.length - 1
+                        ? 'Soal Berikutnya'
+                        : 'SELESAI',
+                    style: GoogleFonts.poppins(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ),
+            ),
           ],
         ),
       ),

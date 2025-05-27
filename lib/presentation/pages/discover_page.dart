@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kelas_pintar/constants/color_constant.dart';
-import 'package:kelas_pintar/presentation/pages/KumpulanEbookPage.dart';
-import 'package:kelas_pintar/presentation/pages/bacaEbook.dart';
+import 'package:kelas_pintar/presentation/pages/kumpulanebook.dart';
 import 'package:kelas_pintar/presentation/pages/kelas/kelas7_page.dart';
 import 'package:kelas_pintar/presentation/pages/kelas/kelas8_page.dart';
 import 'package:kelas_pintar/presentation/pages/kelas/kelas9_page.dart';
@@ -51,7 +50,7 @@ class _DiscoverPageState extends State<DiscoverPage>
             _hasilKoinmu(),
             const Gap(2),
             _sapaanUser(),
-            const Gap(2),
+            const Gap(6),
             _elektronikBookCard(context),
             const Gap(6),
             const PilihKelasWidget(),
@@ -283,7 +282,7 @@ Widget _elektronikBookCard(BuildContext context) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const BacaEbook(),
+                        builder: (context) => const Kumpulanebook(),
                       ),
                     );
                   },

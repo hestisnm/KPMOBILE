@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kelas_pintar/guru/lihatEbook.dart';
 import 'package:kelas_pintar/presentation/widgets/page_widget.dart';
 import 'package:kelas_pintar/guru/eboookGuru.dart'; // <-- Tambahkan ini
 import '../constants/color_constant.dart';
@@ -198,7 +199,7 @@ class HomePageGuru extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const BacaEbookGuru()),
+                            builder: (context) => GuruLiatEbook()),
                       );
                     },
                     child: Container(

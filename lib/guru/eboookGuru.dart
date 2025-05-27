@@ -5,8 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kelas_pintar/constants/color_constant.dart';
 import 'package:kelas_pintar/guru/homePageGuru.dart';
-import 'package:kelas_pintar/presentation/pages/KumpulanEbookPage.dart';
+import 'package:kelas_pintar/guru/lihatEbook.dart';
 import 'package:kelas_pintar/presentation/pages/bacaEbook.dart';
+import 'package:kelas_pintar/presentation/pages/kumpulanebook.dart';
 import 'package:kelas_pintar/presentation/pages/discover_page.dart';
 import 'package:kelas_pintar/presentation/widgets/page_widget.dart';
 
@@ -197,24 +198,29 @@ class _BacaEbookGuruState extends State<BacaEbookGuru> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        // Ganti onPressed jadi onTap
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (_) => Membaca()),
-                        );
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 14, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: ColorConstant.primary,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Text("BACA",
+                    Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(12),
+                        onTap: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (_) => GuruLiatEbook()),
+                          );
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 14, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: ColorConstant.primary,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            "BACA",
                             style: GoogleFonts.poppins(
-                                color: Colors.white, fontSize: 12)),
+                                color: Colors.white, fontSize: 12),
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -238,7 +244,7 @@ class _BacaEbookGuruState extends State<BacaEbookGuru> {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
@@ -302,6 +308,10 @@ class _BacaEbookGuruState extends State<BacaEbookGuru> {
                   ),
                   DropdownButtonFormField<String>(
                     value: _selectedKelas,
+                    decoration: InputDecoration(
+                      labelText: 'Kelas',
+                      labelStyle: GoogleFonts.poppins(),
+                    ),
                     items: ['Kelas 7', 'Kelas 8', 'Kelas 9']
                         .map((kelas) => DropdownMenuItem(
                               value: kelas,
@@ -315,7 +325,6 @@ class _BacaEbookGuruState extends State<BacaEbookGuru> {
                         });
                       }
                     },
-                    decoration: const InputDecoration(labelText: 'Kelas'),
                   ),
                 ],
               ),
@@ -329,22 +338,24 @@ class _BacaEbookGuruState extends State<BacaEbookGuru> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: ColorConstant.primary,
                 ),
-                child: const Text('Tambah'),
                 onPressed: () {
                   if (_titleController.text.isNotEmpty &&
-                      _descController.text.isNotEmpty) {
+                      _descController.text.isNotEmpty &&
+                      _pickedImage != null) {
                     setState(() {
                       allEbooks.add({
-                        'img': _pickedImage?.path ??
-                            'assets/images/ebook.png', // default jika tidak pilih gambar
+                        'img': _pickedImage!.path,
                         'title': _titleController.text,
                         'desc': _descController.text,
                         'kelas': _selectedKelas,
                       });
                     });
                     Navigator.pop(context);
+                  } else {
+                    // Bisa kasih snackbar error disini kalau mau
                   }
                 },
+                child: const Text('Tambah'),
               ),
             ],
           );
@@ -358,24 +369,23 @@ class _BacaEbookGuruState extends State<BacaEbookGuru> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Hapus eBook', style: GoogleFonts.poppins()),
-          content: Text('Yakin ingin menghapus "$title"?'),
+          title: Text('Konfirmasi', style: GoogleFonts.poppins()),
+          content: Text('Yakin ingin menghapus ebook "$title"?',
+              style: GoogleFonts.poppins()),
           actions: [
             TextButton(
               child: const Text('Batal'),
               onPressed: () => Navigator.pop(context),
             ),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-              ),
-              child: const Text('Hapus'),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.red[600]),
               onPressed: () {
                 setState(() {
                   allEbooks.removeWhere((ebook) => ebook['title'] == title);
                 });
                 Navigator.pop(context);
               },
+              child: const Text('Hapus'),
             ),
           ],
         );

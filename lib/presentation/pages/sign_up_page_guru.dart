@@ -48,23 +48,19 @@ class _SignUpPageGuruState extends State<SignUpPageGuru> {
                           const Gap(20),
                           Container(
                             padding: EdgeInsets.symmetric(
-                                horizontal: formPaddingHorizontal, vertical: 30),
+                              horizontal: formPaddingHorizontal,
+                              vertical: 30,
+                            ),
                             decoration: const BoxDecoration(
                               color: Colors.transparent,
                             ),
                             child: Column(
                               children: [
-                                const InputWidget(
-                                  lable: 'Nama Pengguna',
-                                ),
+                                const InputWidget(lable: 'Nama Pengguna'),
                                 const Gap(15),
-                                const InputWidget(
-                                  lable: 'NRG',
-                                ),
+                                const InputWidget(lable: 'NRG'),
                                 const Gap(15),
-                                const InputWidget(
-                                  lable: 'Kode Sekolah',
-                                ),
+                                const InputWidget(lable: 'Kode Sekolah'),
                                 const Gap(25),
                                 Row(
                                   children: [
@@ -118,7 +114,8 @@ class _SignUpPageGuruState extends State<SignUpPageGuru> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const SignInPageGuru()),
+                          builder: (context) => const SignInPageGuru(),
+                        ),
                       );
                     },
                     child: Text(

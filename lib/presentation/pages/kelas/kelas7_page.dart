@@ -807,7 +807,7 @@ class _Kelas7PageState extends State<Kelas7Page>
                     ),
                     padding: const EdgeInsets.all(10),
                     child: Image.asset(
-                      'assets/images/PJOK.png',
+                      'assets/images/pjok.png',
                       width: 60,
                       height: 60,
                       fit: BoxFit.contain,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kelas_pintar/presentation/widgets/page_widget.dart';
-import 'package:kelas_pintar/presentation/pages/bacaEbook.dart'; // <-- Tambahkan ini
+import 'package:kelas_pintar/guru/eboookGuru.dart'; // <-- Tambahkan ini
 import '../constants/color_constant.dart';
 
 class HomePageGuru extends StatelessWidget {
@@ -54,7 +54,7 @@ class HomePageGuru extends StatelessWidget {
                       "Total Kuis", "12", Icons.assignment, Colors.deepPurple),
                   const SizedBox(width: 12),
                   _buildInfoCard(
-                      "Jumlah Murid", "54", Icons.group, Colors.deepPurple),
+                      "Jumlah Siswa", "840", Icons.group, Colors.deepPurple),
                 ],
               ),
               const SizedBox(height: 32),
@@ -198,7 +198,7 @@ class HomePageGuru extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const BacaEbook()),
+                            builder: (context) => const BacaEbookGuru()),
                       );
                     },
                     child: Container(

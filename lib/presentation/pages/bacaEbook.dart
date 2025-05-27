@@ -1,85 +1,191 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kelas_pintar/constants/color_constant.dart';
+import 'package:kelas_pintar/presentation/pages/discover_page.dart';
 import 'package:kelas_pintar/presentation/widgets/page_widget.dart';
 
-class BacaEbook extends StatelessWidget {
+class BacaEbook extends StatefulWidget {
   const BacaEbook({super.key});
 
   @override
+  State<BacaEbook> createState() => _BacaEbookState();
+}
+
+class _BacaEbookState extends State<BacaEbook> {
+  String selectedKelas = 'Semua';
+
+  final List<Map<String, String>> allEbooks = [
+    {
+      'img': 'assets/images/ebook.png',
+      'title': 'Matematika Kelas 7',
+      'desc': 'Pelajari dasar-dasar aljabar dan geometri.',
+      'kelas': 'Kelas 7',
+    },
+    {
+      'img': 'assets/images/ebook.png',
+      'title': 'IPA Kelas 8',
+      'desc': 'Mengenal gaya, energi, dan sistem tubuh manusia.',
+      'kelas': 'Kelas 8',
+    },
+    {
+      'img': 'assets/images/ebook.png',
+      'title': 'Bahasa Indonesia Kelas 9',
+      'desc': 'Belajar menyusun cerita dan puisi.',
+      'kelas': 'Kelas 9',
+    },
+    {
+      'img': 'assets/images/ebook.png',
+      'title': 'Bahasa Inggris Kelas 7',
+      'desc': 'Basic grammar and vocabulary for beginners.',
+      'kelas': 'Kelas 7',
+    },
+  ];
+
+  @override
   Widget build(BuildContext context) {
+    List<Map<String, String>> filteredEbooks = selectedKelas == 'Semua'
+        ? allEbooks
+        : allEbooks.where((e) => e['kelas'] == selectedKelas).toList();
+
     return PageWidget(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // AppBar manual
+          // Header
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            height: kToolbarHeight,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+            color: ColorConstant.primary,
             child: Row(
               children: [
+                // Tombol kembali
                 IconButton(
-                  icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black87),
-                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(Icons.arrow_back, color: Colors.white),
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => DiscoverPage()),
+                    );
+                  },
                 ),
                 const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    'Pendidikan Pancasila',
-                    style: GoogleFonts.poppins(
-                      color: Colors.black87,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    textAlign: TextAlign.center,
+                Text(
+                  'Baca Ebook',
+                  style: GoogleFonts.poppins(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
-                const SizedBox(width: 48), // ruang kosong untuk menyamakan posisi
               ],
             ),
           ),
-          const Divider(height: 1, color: Colors.grey),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Chapter 1',
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Broken Ribs',
-                      style: GoogleFonts.poppins(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Text(
-                      '''That summer, while her boy are on vacation with their father, she goes to visit her lover in Berlin.
 
-“You see,” he says, leaning down toward her and lowering his voice so that those passing by won’t hear, “one thing you don’t know about me is that I like to serve.”
-
-It is a surprising thing to hear, coming from a man two meters tall and built like a heavyweight. In fact, he is an amateur boxer. He fought in the ring for many years, until a sudden and unexplainable attack of Schwindel—of vertigo—briefly hospitalized him, turned up a scar in his brain, and put an end to it.
-
-And yet, though he claims that he will never step foot in the ring again and though he is employed as an editor at a highly respected newspaper, she still privately refers to him, both to her friends and to herself, as the German Boxer. It is easier than using his name, which means “little gift from the gods”—because of that''',
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        height: 1.6,
-                        color: Colors.black87,
-                      ),
-                    ),
-                  ],
+          // Dropdown filter kelas
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            child: DropdownButtonFormField<String>(
+              value: selectedKelas,
+              decoration: InputDecoration(
+                labelText: 'Pilih Kelas',
+                labelStyle: GoogleFonts.poppins(fontSize: 14),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
                 ),
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               ),
+              items: ['Semua', 'Kelas 7', 'Kelas 8', 'Kelas 9']
+                  .map((kelas) => DropdownMenuItem(
+                        value: kelas,
+                        child: Text(kelas, style: GoogleFonts.poppins()),
+                      ))
+                  .toList(),
+              onChanged: (value) {
+                setState(() {
+                  selectedKelas = value!;
+                });
+              },
             ),
           ),
+
+          // List eBook
+          Expanded(
+            child: ListView.builder(
+              padding: const EdgeInsets.all(20),
+              itemCount: filteredEbooks.length,
+              itemBuilder: (context, index) {
+                final ebook = filteredEbooks[index];
+                return _buildEbookCard(
+                  context,
+                  ebook['img']!,
+                  ebook['title']!,
+                  ebook['desc']!,
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEbookCard(
+      BuildContext context, String imgPath, String title, String desc) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Image.asset(imgPath, width: 60, height: 80, fit: BoxFit.cover),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title,
+                    style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.bold, fontSize: 14)),
+                Text(desc,
+                    style: GoogleFonts.poppins(fontSize: 12),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis),
+                const SizedBox(height: 8),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: GestureDetector(
+                    onTap: () {
+                      // Di sini bisa diarahkan ke halaman baca buku
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: ColorConstant.primary,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text("BACA",
+                          style: GoogleFonts.poppins(
+                              color: Colors.white, fontSize: 12)),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          )
         ],
       ),
     );

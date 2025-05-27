@@ -85,7 +85,7 @@ class SignInPageGuru extends StatelessWidget {
             child: Column(
               children: [
                 const InputWidget(
-                  lable: 'NRG',
+                  lable: 'NIP',
                 ),
                 const Gap(15),
                 const InputWidget(

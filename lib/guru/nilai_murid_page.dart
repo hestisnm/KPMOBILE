@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kelas_pintar/constants/color_constant.dart';
 import 'package:kelas_pintar/presentation/widgets/page_widget.dart';
 
 class NilaiMuridPage extends StatefulWidget {
@@ -109,6 +110,7 @@ class _NilaiMuridPageState extends State<NilaiMuridPage> {
 
   @override
   Widget build(BuildContext context) {
+    final themeColor = Colors.deepPurple;
     return PageWidget(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -117,13 +119,14 @@ class _NilaiMuridPageState extends State<NilaiMuridPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                "Nilai Murid",
+                "Nilai Siswa",
                 style: GoogleFonts.poppins(
                   fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                  fontSize: 26,
+                  color: Colors.black,
                 ),
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 24),
               Form(
                 key: _formKey,
                 child: Column(
@@ -133,9 +136,10 @@ class _NilaiMuridPageState extends State<NilaiMuridPage> {
                       decoration: InputDecoration(
                         labelText: "Pilih Kelas",
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12)),
+                            borderRadius: BorderRadius.circular(16)),
                         filled: true,
                         fillColor: Colors.indigo.shade50,
+                        prefixIcon: Icon(Icons.class_),
                       ),
                       items: ["Kelas 7", "Kelas 8", "Kelas 9"]
                           .map(
@@ -144,15 +148,16 @@ class _NilaiMuridPageState extends State<NilaiMuridPage> {
                       onChanged: (val) => setState(() => selectedKelas = val),
                       validator: (v) => v == null ? "Pilih Kelas" : null,
                     ),
-                    SizedBox(height: 12),
+                    SizedBox(height: 16),
                     TextFormField(
                       controller: nisController,
                       decoration: InputDecoration(
                         labelText: "NIS (Nomor Induk Siswa)",
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12)),
+                            borderRadius: BorderRadius.circular(16)),
                         filled: true,
                         fillColor: Colors.indigo.shade50,
+                        prefixIcon: Icon(Icons.confirmation_number_outlined),
                       ),
                       keyboardType: TextInputType.number,
                       validator: (value) {
@@ -163,15 +168,16 @@ class _NilaiMuridPageState extends State<NilaiMuridPage> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 12),
+                    SizedBox(height: 16),
                     TextFormField(
                       controller: namaController,
                       decoration: InputDecoration(
                         labelText: "Nama Siswa",
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12)),
+                            borderRadius: BorderRadius.circular(16)),
                         filled: true,
                         fillColor: Colors.indigo.shade50,
+                        prefixIcon: Icon(Icons.person_outline),
                       ),
                       validator: (value) {
                         if ((value == null || value.isEmpty) &&
@@ -181,42 +187,53 @@ class _NilaiMuridPageState extends State<NilaiMuridPage> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 20),
-                    ElevatedButton.icon(
-                      onPressed: _isLoading ? null : cariNilai,
-                      icon: Icon(Icons.search),
-                      label: Text("Cari Nilai"),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.indigo,
-                        foregroundColor: Colors.white,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-                        textStyle: TextStyle(fontWeight: FontWeight.bold),
+                    SizedBox(height: 24),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 48,
+                      child: ElevatedButton.icon(
+                        onPressed: _isLoading ? null : cariNilai,
+                        icon: Icon(Icons.search, size: 24),
+                        label: Text("Cari Nilai",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: themeColor,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16)),
+                          elevation: 5,
+                          shadowColor: themeColor.withOpacity(0.5),
+                        ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 28),
                   ],
                 ),
               ),
               if (_isLoading)
-                Center(child: CircularProgressIndicator())
+                Center(child: CircularProgressIndicator(color: themeColor))
               else if (hasilPencarian.isNotEmpty) ...[
                 Card(
-                  margin: EdgeInsets.only(bottom: 16),
+                  margin: EdgeInsets.only(bottom: 20),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16)),
+                      borderRadius: BorderRadius.circular(20)),
                   color: Colors.indigo.shade50,
+                  elevation: 6,
+                  shadowColor: themeColor.withOpacity(0.4),
                   child: Padding(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(20),
                     child: Column(
                       children: [
                         Text("Ringkasan Performa",
                             style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w600, fontSize: 16)),
-                        SizedBox(height: 10),
+                                fontWeight: FontWeight.w700,
+                                fontSize: 18,
+                                color: themeColor)),
+                        SizedBox(height: 14),
                         Wrap(
-                          spacing: 20,
-                          runSpacing: 12,
+                          spacing: 24,
+                          runSpacing: 14,
                           children: [
                             _buildRingkasanItem("Kuis Sudah dikerjakan",
                                 jumlahSudah.toString()),
@@ -232,29 +249,40 @@ class _NilaiMuridPageState extends State<NilaiMuridPage> {
                 ),
                 Row(
                   children: [
-                    DropdownButton<String>(
-                      value: filterStatus,
-                      items: ['Semua', 'Sudah', 'Belum']
-                          .map(
-                              (e) => DropdownMenuItem(value: e, child: Text(e)))
-                          .toList(),
-                      onChanged: (val) {
-                        if (val != null) {
-                          setState(() {
-                            filterStatus = val;
-                          });
-                        }
-                      },
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Color(0xFFC5BAFF),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: DropdownButton<String>(
+                        underline: SizedBox(),
+                        value: filterStatus,
+                        items: ['Semua', 'Sudah', 'Belum']
+                            .map((e) =>
+                                DropdownMenuItem(value: e, child: Text(e)))
+                            .toList(),
+                        onChanged: (val) {
+                          if (val != null) {
+                            setState(() {
+                              filterStatus = val;
+                            });
+                          }
+                        },
+                      ),
                     ),
-                    SizedBox(width: 12),
+                    SizedBox(width: 16),
                     Expanded(
                       child: TextField(
                         decoration: InputDecoration(
                           labelText: "Cari kuis",
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12)),
+                              borderRadius: BorderRadius.circular(16)),
                           filled: true,
                           fillColor: Colors.indigo.shade50,
+                          prefixIcon: Icon(Icons.search),
+                          contentPadding: EdgeInsets.symmetric(vertical: 0),
                         ),
                         onChanged: (val) {
                           setState(() {
@@ -265,7 +293,7 @@ class _NilaiMuridPageState extends State<NilaiMuridPage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 12),
+                SizedBox(height: 16),
                 ListView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
@@ -273,29 +301,37 @@ class _NilaiMuridPageState extends State<NilaiMuridPage> {
                   itemBuilder: (context, index) {
                     final kuis = filteredList[index];
                     return Card(
-                      margin: EdgeInsets.symmetric(vertical: 6),
+                      margin: EdgeInsets.symmetric(vertical: 8),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16)),
+                      elevation: 3,
+                      shadowColor: themeColor.withOpacity(0.2),
                       child: ListTile(
                         leading: Icon(
                           kuis['status'] == 'Sudah'
-                              ? Icons.check_circle
-                              : Icons.pending,
+                              ? Icons.check_circle_rounded
+                              : Icons.pending_actions_rounded,
                           color: kuis['status'] == 'Sudah'
-                              ? Colors.green
-                              : Colors.orange,
+                              ? Colors.green.shade600
+                              : Colors.orange.shade700,
+                          size: 28,
                         ),
                         title: Text(kuis['judul'],
                             style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w600)),
+                                fontWeight: FontWeight.w600, fontSize: 16)),
                         subtitle: Text(
-                            "Status: ${kuis['status']}\nNilai: ${kuis['nilai'] != null ? kuis['nilai'].toString() : '-'}"),
+                            "Status: ${kuis['status']}\nNilai: ${kuis['nilai'] != null ? kuis['nilai'].toString() : '-'}",
+                            style: GoogleFonts.poppins(fontSize: 14)),
                         isThreeLine: true,
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       ),
                     );
                   },
                 ),
                 if (filteredList.isEmpty)
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    padding: const EdgeInsets.symmetric(vertical: 24),
                     child: Center(
                       child: Text(
                         "Tidak ada kuis sesuai filter dan pencarian.",
@@ -307,10 +343,11 @@ class _NilaiMuridPageState extends State<NilaiMuridPage> {
                   ),
               ] else
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 60),
+                  padding: const EdgeInsets.symmetric(vertical: 80),
                   child: Center(
                       child: Text("Data belum dicari",
-                          style: GoogleFonts.poppins())),
+                          style: GoogleFonts.poppins(
+                              fontSize: 16, color: Colors.black45))),
                 ),
             ],
           ),
@@ -321,20 +358,30 @@ class _NilaiMuridPageState extends State<NilaiMuridPage> {
 
   Widget _buildRingkasanItem(String title, String value) {
     return Container(
-      width: 140,
-      padding: EdgeInsets.all(12),
+      width: 150,
+      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
       decoration: BoxDecoration(
         color: Colors.indigo.shade100,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.indigo.shade100.withOpacity(0.6),
+            offset: Offset(0, 4),
+            blurRadius: 8,
+          )
+        ],
       ),
       child: Column(
         children: [
           Text(value,
               style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.bold, fontSize: 20)),
-          SizedBox(height: 6),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                  color: Colors.deepPurple)),
+          SizedBox(height: 8),
           Text(title,
-              style: GoogleFonts.poppins(fontSize: 14),
+              style:
+                  GoogleFonts.poppins(fontSize: 14, color: Colors.deepPurple),
               textAlign: TextAlign.center),
         ],
       ),

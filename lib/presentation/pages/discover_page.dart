@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kelas_pintar/constants/color_constant.dart';
+import 'package:kelas_pintar/presentation/pages/KumpulanEbookPage.dart';
 import 'package:kelas_pintar/presentation/pages/kelas/kelas7_page.dart';
 import 'package:kelas_pintar/presentation/pages/kelas/kelas8_page.dart';
 import 'package:kelas_pintar/presentation/pages/kelas/kelas9_page.dart';
@@ -49,6 +50,9 @@ class _DiscoverPageState extends State<DiscoverPage>
             _hasilKoinmu(),
             const Gap(2),
             _sapaanUser(),
+            const Gap(2),
+             _elektronikBookCard(context),
+            const Gap(6),
             const PilihKelasWidget(),
           ],
         ),
@@ -247,39 +251,81 @@ class _DiscoverPageState extends State<DiscoverPage>
   }
 }
 
-Widget _elektronikBookCard() {
+Widget _elektronikBookCard(BuildContext context) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20),
-    child: Container(
-      decoration: BoxDecoration(
-        color: Color(0xFFC5BAFF),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              'Elektronik Book',
-              style: GoogleFonts.poppins(
-                fontWeight: FontWeight.w600,
-                fontSize: 16,
-                color: Colors.black,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        
+        // Tombol "Baca" di atas kartu
+        Align(
+          alignment: Alignment.centerRight,
+          child: ElevatedButton(
+            onPressed: () {
+              // Navigasi ke halaman kumpulan ebook
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const KumpulanEbookPage(), // pastikan halaman ini ada
+                ),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.deepPurple,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
               ),
             ),
+            child: const Text(
+              'Baca',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
-          const SizedBox(width: 20),
-          Image.asset(
-            'assets/images/buku.png',
-            width: 80,
-            height: 80,
-            fit: BoxFit.contain,
+        ),
+
+        const SizedBox(height: 10),
+
+        // Kartu eBook
+        InkWell(
+          borderRadius: BorderRadius.circular(20),
+          onTap: () {
+            print('Elektronik Book diklik');
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              color: Color(0xFFC5BAFF),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            child: Row(
+              children: [
+                Flexible(
+                  child: Text(
+                    'Elektronik Book',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 60),
+                Image.asset(
+                  'assets/images/buku.png',
+                  width: 80,
+                  height: 80,
+                ),
+              ],
+            ),
           ),
-        ],
-      ),
+        ),
+      ],
     ),
   );
 }
+
+
 
 // ============================
 // WIDGET PILIH KELAS

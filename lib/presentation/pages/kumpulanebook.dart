@@ -65,7 +65,7 @@ class _KumpulanebookState extends State<Kumpulanebook> {
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (_) => DiscoverPage()),
+                      MaterialPageRoute(builder: (_) => NavbarSiswa()),
                     );
                   },
                 ),

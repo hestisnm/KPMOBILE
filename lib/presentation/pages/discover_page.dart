@@ -6,6 +6,7 @@ import 'package:kelas_pintar/presentation/pages/kelas/kelas7_page.dart';
 import 'package:kelas_pintar/presentation/pages/kelas/kelas8_page.dart';
 import 'package:kelas_pintar/presentation/pages/kelas/kelas9_page.dart';
 import 'package:kelas_pintar/presentation/pages/mapel_kelas7/senibudaya.dart';
+import 'package:kelas_pintar/presentation/pages/navbar.dart';
 import 'package:kelas_pintar/presentation/pages/notifikasi.dart';
 import 'package:kelas_pintar/presentation/pages/profil.dart';
 import 'package:kelas_pintar/presentation/widgets/page_widget.dart';
@@ -46,11 +47,11 @@ class _DiscoverPageState extends State<DiscoverPage>
         child: Column(
           children: [
             _userInfo(),
-            const Gap(6),
+            const Gap(0),
             _hasilKoinmu(),
             const Gap(2),
             _sapaanUser(),
-            const Gap(6),
+            const Gap(2),
             _elektronikBookCard(context),
             const Gap(6),
             const PilihKelasWidget(),
@@ -235,10 +236,10 @@ class _DiscoverPageState extends State<DiscoverPage>
           ),
           Positioned(
             right: -15,
-            top: -25,
+            top: -40,
             child: SizedBox(
-              width: 210,
-              height: 205,
+              width: 200,
+              height: 200,
               child: Image.asset(
                 'assets/images/happy_koala.png',
                 fit: BoxFit.contain,
@@ -368,11 +369,12 @@ class PilihKelasWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Pilih Kelas',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
+          
+            Text(
+            'Pilih Kelas Lain Untuk Mencoba Hal Baru',
+            style: GoogleFonts.poppins(
+              fontWeight: FontWeight.w600,
+              fontSize: 12,
               color: Colors.black,
             ),
           ),
@@ -386,11 +388,11 @@ class PilihKelasWidget extends StatelessWidget {
                   isFullWidth: true,
                   backgroundColor: Colors.white,
                   textColor: Colors.black,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
+                    onPressed: () {
+                    Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                          builder: (context) => const Kelas7Page()),
+                        builder: (context) => NavbarSiswa(initialIndex: 1),
+                      )
                     );
                   },
                 ),
@@ -404,10 +406,10 @@ class PilihKelasWidget extends StatelessWidget {
                   backgroundColor: Colors.white,
                   textColor: Colors.black,
                   onPressed: () {
-                    Navigator.push(
-                      context,
+                    Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                          builder: (context) => const Kelas8Page()),
+                        builder: (context) => NavbarSiswa(initialIndex: 1),
+                      ),
                     );
                   },
                 ),
@@ -421,10 +423,10 @@ class PilihKelasWidget extends StatelessWidget {
                   backgroundColor: Colors.white,
                   textColor: Colors.black,
                   onPressed: () {
-                    Navigator.push(
-                      context,
+                    Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                          builder: (context) => const Kelas9Page()),
+                        builder: (context) => NavbarSiswa(initialIndex: 1),
+                      ),
                     );
                   },
                 ),

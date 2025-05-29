@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kelas_pintar/guru/dashboardGuru.dart';
+import 'package:kelas_pintar/guru/eboookGuru.dart';
 import 'package:kelas_pintar/presentation/pages/discover_page.dart';
 import 'package:kelas_pintar/presentation/widgets/page_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -202,7 +203,7 @@ class _GuruLiatEbookState extends State<GuruLiatEbook>
         children: [
           InkWell(
             onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => DashboardGuru()),
+              MaterialPageRoute(builder: (context) => BacaEbookGuru()),
             ),
             borderRadius: BorderRadius.circular(20),
             child: Container(

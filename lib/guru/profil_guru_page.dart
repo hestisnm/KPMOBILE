@@ -21,11 +21,11 @@ class _ProfilGuruPageState extends State<ProfilGuruPage>
   late Animation<Offset> _slideAnimation;
 
   final TextEditingController _namaController =
-      TextEditingController(text: "Tutties");
+      TextEditingController(text: "Satya");
   final TextEditingController _nipController =
       TextEditingController(text: "1987654321");
   final TextEditingController _mapelController =
-      TextEditingController(text: "Bahasa Indonesia");
+      TextEditingController(text: "Informatika");
 
   @override
   void initState() {
@@ -79,7 +79,8 @@ class _ProfilGuruPageState extends State<ProfilGuruPage>
                                   topRight: Radius.circular(30),
                                 ),
                               ),
-                              padding: const EdgeInsets.fromLTRB(24, 80, 24, 24),
+                              padding:
+                                  const EdgeInsets.fromLTRB(24, 80, 24, 24),
                               child: IntrinsicHeight(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,9 +107,11 @@ class _ProfilGuruPageState extends State<ProfilGuruPage>
                                     const SizedBox(height: 40),
                                     ElevatedButton(
                                       onPressed: () {
-                                        ScaffoldMessenger.of(context).showSnackBar(
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
                                           const SnackBar(
-                                            content: Text('Data berhasil disimpan!'),
+                                            content:
+                                                Text('Data berhasil disimpan!'),
                                           ),
                                         );
                                       },
@@ -116,7 +119,8 @@ class _ProfilGuruPageState extends State<ProfilGuruPage>
                                         backgroundColor: ColorConstant.primary,
                                         minimumSize: const Size.fromHeight(50),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(15),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                       ),
                                       child: Text(
@@ -133,7 +137,8 @@ class _ProfilGuruPageState extends State<ProfilGuruPage>
                                         Navigator.pushAndRemoveUntil(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => SplashScreen()),
+                                              builder: (context) =>
+                                                  SplashScreen()),
                                           (route) => false,
                                         );
                                       },
@@ -141,7 +146,8 @@ class _ProfilGuruPageState extends State<ProfilGuruPage>
                                         backgroundColor: Colors.redAccent,
                                         minimumSize: const Size.fromHeight(50),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(15),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                       ),
                                       child: Text(
@@ -172,7 +178,7 @@ class _ProfilGuruPageState extends State<ProfilGuruPage>
                           const CircleAvatar(
                             radius: 50,
                             backgroundImage:
-                                AssetImage('assets/images/user_profile.png'),
+                                AssetImage('assets/images/bws.png'),
                           ),
                           GestureDetector(
                             onTap: () {
@@ -243,7 +249,7 @@ class _ProfilGuruPageState extends State<ProfilGuruPage>
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Aktivitas Mengajar',
+              'Keaktifan Mengajar',
               style: GoogleFonts.poppins(
                 fontWeight: FontWeight.w500,
                 fontSize: 13,
@@ -251,7 +257,7 @@ class _ProfilGuruPageState extends State<ProfilGuruPage>
               ),
             ),
             Text(
-              '12 Kelas Aktif',
+              '76%',
               style: GoogleFonts.poppins(
                 fontWeight: FontWeight.w600,
                 fontSize: 13,

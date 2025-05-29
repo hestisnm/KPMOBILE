@@ -176,10 +176,11 @@ class _TambahKuisPageState extends State<TambahKuisPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                 const SizedBox(width: 8),
                 Text(
                   "Tambah Kuis Baru",
                   style: GoogleFonts.poppins(
-                    fontSize: 24,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kelas_pintar/constants/color_constant.dart';
+import 'package:kelas_pintar/guru/dashboardGuru.dart';
 import 'package:kelas_pintar/guru/homePageGuru.dart';
 import 'package:kelas_pintar/guru/lihatEbook.dart';
 import 'package:kelas_pintar/presentation/pages/bacaEbook.dart';
@@ -63,31 +64,32 @@ class _BacaEbookGuruState extends State<BacaEbookGuru> {
           // Header
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-            color: ColorConstant.primary,
+           
             child: Row(
               children: [
                 IconButton(
-                  icon: const Icon(Icons.arrow_back, color: Colors.white),
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (_) => HomePageGuru()),
+                  icon: const Icon(Icons.arrow_back, color: Colors.black),
+                   onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => Dashboardguru(initialIndex: 0),
+                      )
                     );
                   },
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  'Baca Ebook',
+                  'Kumpulan Ebook',
                   style: GoogleFonts.poppins(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                 ),
                 const Spacer(),
                 // Tombol tambah ebook
                 IconButton(
-                  icon: const Icon(Icons.add, color: Colors.white),
+                  icon: const Icon(Icons.add, color: Colors.black),
                   onPressed: () {
                     _showAddEbookDialog();
                   },

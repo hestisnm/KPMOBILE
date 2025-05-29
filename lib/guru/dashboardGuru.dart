@@ -4,19 +4,26 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kelas_pintar/constants/color_constant.dart';
 import 'package:kelas_pintar/guru/eboookGuru.dart';
 import 'package:kelas_pintar/guru/homePageGuru.dart';
-import 'tambah_kuis_page.dart';
-import 'nilai_murid_page.dart';
-import 'profil_guru_page.dart';
+import 'package:kelas_pintar/guru/nilai_murid_page.dart';
+import 'package:kelas_pintar/guru/profil_guru_page.dart';
+import 'package:kelas_pintar/guru/tambah_kuis_page.dart';
+import 'package:kelas_pintar/presentation/pages/discover_page.dart';
+import 'package:kelas_pintar/presentation/pages/kelas/kelas7_page.dart';
+import 'package:kelas_pintar/presentation/pages/peringkat.dart';
+import 'package:kelas_pintar/presentation/pages/profil.dart';
 
-class DashboardGuru extends StatefulWidget {
+class Dashboardguru extends StatefulWidget {
+  final int initialIndex;
+  Dashboardguru({this.initialIndex = 0}); // parameter dengan default 0
+
   @override
-  State<DashboardGuru> createState() => _DashboardGuruState();
+  State<Dashboardguru> createState() => _DashboardguruState();
 }
 
-class _DashboardGuruState extends State<DashboardGuru> {
-  int _selectedIndex = 0;
+class _DashboardguruState extends State<Dashboardguru> {
+  late int _selectedIndex;
 
-  final List<Widget> _pages = [
+ final List<Widget> _pages = [
     HomePageGuru(),
     TambahKuisPage(),
     BacaEbookGuru(),
@@ -27,10 +34,16 @@ class _DashboardGuruState extends State<DashboardGuru> {
   final List<Widget> _navItems = [
     Icon(Icons.home, size: 30),
     Icon(Icons.edit, size: 30),
-    Icon(Icons.book_online, size: 30),
+    Icon(Icons.menu_book_outlined, size: 30),
     Icon(Icons.bar_chart, size: 30),
     Icon(Icons.person, size: 30),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.initialIndex;  // set dari parameter
+  }
 
   @override
   Widget build(BuildContext context) {

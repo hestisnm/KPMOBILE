@@ -167,6 +167,12 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                               hint: 'Masukkan NIS',
                               controller: _nisController,
                             ),
+                            const SizedBox(height: 20),
+                            _inputField(
+                              title: 'Kelas',
+                              hint: 'Masukkan Kelas',
+                              controller: _nisController,
+                            ),
                             const SizedBox(height: 30),
                             _progressBar(value: 0.75),
                             const SizedBox(height: 40),

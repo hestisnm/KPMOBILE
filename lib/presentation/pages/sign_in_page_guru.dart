@@ -103,7 +103,7 @@ class SignInPageGuru extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
-                              builder: (context) => DashboardGuru(),
+                              builder: (context) => Dashboardguru(),
                             ));
                           },
                         );

@@ -118,11 +118,12 @@ class _NilaiMuridPageState extends State<NilaiMuridPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+               const SizedBox(width: 8),
               Text(
                 "Nilai Siswa",
                 style: GoogleFonts.poppins(
                   fontWeight: FontWeight.bold,
-                  fontSize: 26,
+                  fontSize: 20,
                   color: Colors.black,
                 ),
               ),

@@ -250,7 +250,7 @@ class _PeringkatPageState extends State<PeringkatPage>
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.6,
+                height: MediaQuery.of(context).size.height * 0.5,
                 width: double.infinity,
                 padding: const EdgeInsets.all(16),
                 decoration: const BoxDecoration(

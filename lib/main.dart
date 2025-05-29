@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kelas_pintar/screen/splash_screen.dart';
-import 'mainscreen.dart';
 
 void main() {
   runApp(const MyApp());

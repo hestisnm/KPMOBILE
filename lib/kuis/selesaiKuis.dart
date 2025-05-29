@@ -2,6 +2,7 @@ import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:kelas_pintar/constants/color_constant.dart';
 import 'package:kelas_pintar/presentation/pages/discover_page.dart';
+import 'package:kelas_pintar/presentation/pages/navbar.dart';
 import 'package:kelas_pintar/presentation/pages/peringkat.dart';
 import 'package:kelas_pintar/presentation/widgets/button_widget.dart';
 import 'package:kelas_pintar/presentation/widgets/page_widget.dart';
@@ -169,12 +170,12 @@ class _HasilKuisPageState extends State<HasilKuisPage> {
                         children: [
                           Expanded(
                             child: ButtonWidget(
-                              text: 'Batal',
+                              text: 'Beranda',
                               isFullWidth: true,
                               onPressed: () {
                                 Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
-                                    builder: (context) => DiscoverPage(),
+                                    builder: (context) => NavbarSiswa(),
                                   ),
                                 );
                               },
@@ -183,12 +184,13 @@ class _HasilKuisPageState extends State<HasilKuisPage> {
                           SizedBox(width: maxWidth * 0.04),
                           Expanded(
                             child: ButtonWidget(
-                              text: 'Rank',
+                              text: 'Peringkat',
                               isFullWidth: true,
                               onPressed: () {
                                 Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
-                                    builder: (context) => PeringkatPage(),
+                                    builder: (context) =>
+                                        NavbarSiswa(initialIndex: 2),
                                   ),
                                 );
                               },
